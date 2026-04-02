@@ -34,13 +34,14 @@
 
 ## About (`AboutSection.tsx`)
 
-- **섹션 라벨**: `SectionLabel`을 `h2` + `id="about-heading"`으로 사용(접근성과 시각 라벨 일치)
+- **섹션 라벨**: `SectionLabel`을 `h2` + `id="about-heading"` + `className="w-full text-center"` (접근성·`#about` 앵커 유지)
 - **라벨 텍스트**: `About`
+- **GitHub 기여 카드**: `GithubContributionCard` — 라벨 바로 아래, 보조 카드 **`max-w-[20rem]` / `md:max-w-[22rem]`**, `rounded-2xl`·`p-5`/`md:p-6`. **This year:** 한 줄 굵은 표기(`text-base`/`md:text-lg`) + **Today**(`text-sm`/`md:text-[0.9375rem]`). 5×7 블록 **`size-[10px]`/`md:size-3`**, `gap-1`/`md:gap-1.5`. `fetchContributionSummary()` ([github-contributions.md](./github-contributions.md)). 실패 시 `—`·빈 그리드
 - **메인 카피**(큰 본문):  
   「끊임없이 탐구하며, 꾸준함을 결과로 만듭니다.」(줄바꿈 유지)
 - **보조 카피**: 그 아래 작은 회색 단락
 - **금지**: 기술 뱃지·아이콘 난립 없음
-- **레이아웃**: 넉넉한 `py-24` / `md:py-32`, `max-w-xl`~`lg`로 읽기 폭 제한
+- **레이아웃**: `.site-container`에 `flex flex-col items-center text-center`로 **가로 중앙 스택**. `py-24` / `md:py-32`, 본문은 `max-w-xl`·`max-w-lg`로 읽기 폭 제한
 
 ---
 

@@ -46,6 +46,7 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 
 ### About (`AboutSection.tsx`)
 
+- **GitHub 기여**: `lib/github/fetchContributionSummary.ts`에서 GraphQL로 `ContributionSummary` 조회(환경 변수 `GITHUB_USERNAME`, `GITHUB_TOKEN`, 서버 전용). `GithubContributionCard`로 소형 카드만 표시.
 - 상단 라벨: `SectionLabel` 컴포넌트(`as="h2"`, `id="about-heading"`)
 - 메인 카피:  
   「끊임없이 탐구하며, 꾸준함을 결과로 만듭니다.」

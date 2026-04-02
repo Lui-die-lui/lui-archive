@@ -9,6 +9,7 @@
 | [overview.md](./overview.md) | 전체 페이지 구조와 섹션 역할 |
 | [ui-sections.md](./ui-sections.md) | 섹션별 UI 규칙(Hero, About, Skills 등) |
 | [data-models.md](./data-models.md) | mock 데이터·타입 구조 |
+| [github-contributions.md](./github-contributions.md) | About GitHub 기여 카드·GraphQL 연동 입문·환경 변수 |
 | [guestbook.md](./guestbook.md) | 방명록 UI/상태/동작 |
 | [admin.md](./admin.md) | 추후 admin 인증·관리 구조 |
 | [work-log.md](./work-log.md) | 작업 단위별 변경 기록 |

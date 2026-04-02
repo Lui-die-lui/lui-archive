@@ -10,7 +10,7 @@
 | 순서 | 섹션 | `id` | 역할(요약) |
 |------|------|------|------------|
 | 1 | Hero | `hero` | 브랜딩, 앵커 내비, 외부 링크 자리, 메인 타이틀·소개 |
-| 2 | About | `about` | 소개 라벨, 메인 카피, 보조 문단 |
+| 2 | About | `about` | 소개 라벨, GitHub 기여 소형 카드(서버 API), 메인·보조 카피 |
 | 3 | Skills | `skills` | 기술 스택 카테고리 카드(4개) |
 | 4 | Projects | `projects` | 프로젝트 카드 3건, mock 데이터·가로 스크롤(모바일) |
 | 5 | Certs | `certs` | 수료·자격 카드, 링크 유무에 따른 클릭 스타일 |
@@ -27,4 +27,5 @@
 
 - UI 세부: [ui-sections.md](./ui-sections.md)
 - 데이터 타입·mock: [data-models.md](./data-models.md)
+- GitHub 기여(About): [github-contributions.md](./github-contributions.md)
 - 앵커·파일 트리: [page-structure.md](./page-structure.md)

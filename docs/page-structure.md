@@ -26,17 +26,24 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 | 섹션 | 파일 | 비고 |
 |------|------|------|
 | Hero | `HeroSection.tsx` | `min-h-dvh` 랜딩, 좌측 2줄 타이틀·우측 링크·하단 scroll |
-| About | `AboutSection.tsx` | 라벨·메인/보조 카피 구현됨 |
+| About | `AboutSection.tsx` | 서버에서 GitHub 기여 요약 fetch → `about/GithubContributionCard`, 라벨·메인/보조 카피 |
 | Skills | `SkillsSection.tsx` | `skillCategories` 카드 그리드 |
 | Projects | `ProjectsSection.tsx` | `projects` mock 3건, 모바일 가로 스크롤 |
 | Certs | `CertsSection.tsx` | `certs` mock, 링크 유무 스타일 분기 |
 | Guestbook | `GuestbookSection.tsx` + `guestbook/GuestbookPanel.tsx` | mock 로그 + 로컬 추가 입력 |
+
+## About 보조 (`components/about/`)
+
+| 파일 | 용도 |
+|------|------|
+| `GithubContributionCard.tsx` | GraphQL 기반 기여 요약 소형 카드(프롭만 받음, 토큰 미사용) |
 
 ## 보조 UI (`components/ui/`)
 
 | 파일 | 용도 |
 |------|------|
 | `ArchiveBlurAccents.tsx` | Hero 배경 sky/blue 블러 4개(우하단 포함, 드리프트) |
+| `ctaPill.ts` | 방명록·contact·소셜 캡슐 클래스 문자열 |
 | `SectionLabel.tsx` | About 등 소형 섹션 라벨 |
 
 ## 앵커 `id`
@@ -81,6 +88,8 @@ app/
   layout.tsx
   globals.css
 components/
+  about/
+    GithubContributionCard.tsx
   layout/
     Footer.tsx
     NavBar.tsx
@@ -95,6 +104,7 @@ components/
     GuestbookPanel.tsx
   ui/
     ArchiveBlurAccents.tsx
+    ctaPill.ts
     SectionLabel.tsx
 data/
   skillCategories.ts
@@ -103,6 +113,10 @@ data/
   certs.ts
   guestbook.ts
   contact.ts
+  githubContributions.ts
+lib/
+  github/
+    fetchContributionSummary.ts
 docs/
   README.md
   page-structure.md

@@ -89,6 +89,26 @@ export const guestbookEntries: GuestbookEntry[];
 
 스키마·카피 변경 시 [guestbook.md](./guestbook.md)와 UI를 함께 수정합니다.
 
+## `data/githubContributions.ts`
+
+About GitHub 기여 카드용 **타입만** 정의합니다. 실제 API 호출·가공은 `lib/github/fetchContributionSummary.ts`에서 수행합니다.
+
+```ts
+export type ContributionDay = {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+};
+
+export type ContributionSummary = {
+  thisYear: number;
+  today: number;
+  days: ContributionDay[];
+};
+```
+
+상세 흐름·환경 변수는 [github-contributions.md](./github-contributions.md)를 참고합니다.
+
 ## `data/contact.ts`
 
 푸터 연락처 mock(이메일·GitHub·Velog·Instagram).

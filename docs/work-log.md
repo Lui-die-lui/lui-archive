@@ -4,6 +4,54 @@
 
 ---
 
+## 2026-04-03 — About 섹션 가로 중앙 정렬
+
+- **코드**: `AboutSection` `.site-container`에 `flex flex-col items-center text-center`, `SectionLabel`에 `w-full text-center`. `GithubContributionCard`에서 `w-full` 제거해 카드가 중앙에 오도록 함.
+- **문서**: `ui-sections.md`, `work-log.md`.
+
+---
+
+## 2026-04-03 — GitHub 기여 카드 사이즈 업(와이어 비례)
+
+- **코드**: `GithubContributionCard` 폭·패딩·그리드 셀·타이포·그림자 확대(`max-w-[20rem]`/`22rem`, 셀 10px/12px).
+- **문서**: `ui-sections.md`, `work-log.md`.
+
+---
+
+## 2026-04-03 — `github-contributions.md` GraphQL·연동 입문 정리
+
+- **문서**: REST 대비 GraphQL, 엔드포인트·POST·Bearer, `query`/`variables`/응답 `data`·`errors`, 이 레포의 쿼리 구조·데이터 흐름·토큰 발급 힌트 추가.
+
+---
+
+## 2026-04-03 — GitHub 카드 Total 제거·This year 강조
+
+- **코드**: `ContributionSummary`에서 `total` 제거, GraphQL에서 `totalCommitContributions` 조회 제거. 카드 상단을 **This year:**, 그 아래 **Today**.
+- **문서**: `github-contributions.md`, `data-models.md`, `ui-sections.md`, `work-log.md`.
+
+---
+
+## 2026-04-03 — GitHub GraphQL 오류 완화(달력·total 분리·level 클라 산출)
+
+- **코드**: `contributionLevel` 제거, `totalPart`/`calendarPart` 별칭으로 기간 분리, count 기반 0~4 레벨. dev에서 GraphQL 오류는 `JSON.stringify`로 로그.
+- **문서**: `github-contributions.md`, `work-log.md`.
+
+---
+
+## 2026-04-03 — GitHub 기여 fetch `viewer` 전환·env 정규화
+
+- **코드**: GraphQL을 `user(login)` → **`viewer`**로 변경(토큰 계정과 불일치 시 미반영 문제 완화). `sanitizeEnv`로 따옴표 제거, `noStore` + 개발 시 `cache: 'no-store'`. `fetchContributionSummary` 반환에 `displayHandle`(성공 시 `viewer.login`).
+- **문서**: `github-contributions.md`, `work-log.md`.
+
+---
+
+## 2026-04-03 — About GitHub 기여 카드(GraphQL·서버 전용)
+
+- **코드**: `data/githubContributions.ts`(타입), `lib/github/fetchContributionSummary.ts`(GraphQL·가공), `components/about/GithubContributionCard.tsx`, `AboutSection`을 async로 fetch 연동. `.env.example`에 `GITHUB_USERNAME` / `GITHUB_TOKEN`.
+- **문서**: `github-contributions.md` 신설, `data-models.md`, `ui-sections.md`, `overview.md`, `page-structure.md`, `implementation.md`, `work-log.md` 갱신.
+
+---
+
 ## 2026-04-03 — contact 타이포 확대·히어로 블러 우하단
 
 - **코드**: `ctaPillSizeLg` 글자·패딩·높이 상향. `ArchiveBlurAccents`에 `archive-blob-4`(우하단 `sky-200`), `globals.css`에 드리프트 타이밍.

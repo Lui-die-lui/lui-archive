@@ -1,16 +1,25 @@
+import GithubContributionCard from "@/components/about/GithubContributionCard";
 import SectionLabel from "@/components/ui/SectionLabel";
+import { fetchContributionSummary } from "@/lib/github/fetchContributionSummary";
 
-export default function AboutSection() {
+export default async function AboutSection() {
+  const { summary, displayHandle } = await fetchContributionSummary();
+
   return (
     <section
       id="about"
       aria-labelledby="about-heading"
       className="border-b border-zinc-200/80 bg-white"
     >
-      <div className="site-container py-24 md:py-32">
-        <SectionLabel as="h2" id="about-heading">
+      <div className="site-container flex flex-col items-center py-24 text-center md:py-32">
+        <SectionLabel
+          as="h2"
+          id="about-heading"
+          className="w-full text-center"
+        >
           About
         </SectionLabel>
+        <GithubContributionCard summary={summary} username={displayHandle} />
         <p className="max-w-xl text-2xl font-light leading-snug tracking-tight text-zinc-900 md:text-3xl md:leading-snug">
           끊임없이 탐구하며,
           <br />
