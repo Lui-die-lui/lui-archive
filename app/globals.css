@@ -12,8 +12,76 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@keyframes archive-blob-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(1.5%, -1%) scale(1.02);
+  }
+  70% {
+    transform: translate(-1%, 1.2%) scale(0.99);
+  }
+}
+
+@keyframes scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* CherryPlan류 랜딩에 가깝게 넓은 본문 폭(1280px cap + 반응형 패딩) */
+@layer components {
+  .site-container {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .archive-blob {
+    animation: archive-blob-drift 26s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .archive-blob {
+      animation: none;
+    }
+  }
+
+  .archive-blob-2 {
+    animation-duration: 32s;
+    animation-delay: -5s;
+  }
+
+  .archive-blob-3 {
+    animation-duration: 30s;
+    animation-delay: -10s;
+  }
+
+  .archive-blob-4 {
+    animation-duration: 36s;
+    animation-delay: -14s;
+  }
+
+  .animate-scroll-hint {
+    animation: scroll-hint 2.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-scroll-hint {
+      animation: none;
+    }
+  }
 }

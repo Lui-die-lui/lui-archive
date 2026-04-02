@@ -7,7 +7,7 @@ export default function Footer() {
       className="border-t border-zinc-200/80 bg-[#fafbfd]"
       aria-labelledby="footer-heading"
     >
-      <div className="mx-auto max-w-5xl px-6 py-14 md:py-16">
+      <div className="site-container py-14 md:py-16">
         <h2
           id="footer-heading"
           className="text-sm font-medium uppercase tracking-[0.18em] text-zinc-400"

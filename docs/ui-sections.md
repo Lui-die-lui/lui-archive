@@ -2,18 +2,33 @@
 
 구현 파일: `components/sections/*.tsx`, 보조 UI: `components/ui/*.tsx`
 
+## 전역 콘텐츠 폭 (`app/globals.css`)
+
+- **`.site-container`**: `max-w-7xl`(1280px) + `px-5 sm:px-6 lg:px-8` — [CherryPlan 3D 랜딩](https://3dsite-ivory.vercel.app/)류와 비슷하게 **이전보다 넓은** 메인 폭
+- 헤더·히어로·본문 섹션·푸터에서 공통 사용
+
 ---
+
+## 글로벌 헤더 (`SiteHeader.tsx`, `app/layout.tsx`)
+
+- **와이어 정합**: 좌 `Lui Arc.` · 중앙 `intro` / `skills` / `works` / `certs` · 우 **방명록**(얇은 필, 리퀴드 메탈 없음)
+- **방명록 버튼**: `ctaPillGlassButton`(`h-8`) — 소셜과 **같은 크기**, **글라스**(반투명·`backdrop-blur-md`·인셋 하이라이트·호버 진해짐)
+- **스타일**: `fixed`, 매우 연한 반투명 + `backdrop-blur` (무거운 바 지양)
+- **`md` 이상**: 중앙 내비는 뷰포트 중앙 정렬(`absolute` + `-translate-x-1/2`)
+- **모바일**: 첫 행(로고·방명록) 아래에 가로 스크롤 가능한 동일 4링크 행(높이 과다 방지)
 
 ## Hero (`HeroSection.tsx`)
 
-- **로고 문구**: `Lui Arc.` (상단 좌측 느낌의 텍스트 로고)
-- **내비**: `intro` → `#about`, `skills` → `#skills`, `works` → `#projects`, `certs` → `#certs`, `방명록` → `#guestbook`
-- **우측 링크**: `GitHub`, `Velog` 텍스트 링크(현재 `href="#"` 플레이스홀더)
-- **메인 타이틀**: `Lui Archive` (`h1`, `id="hero-heading"`)
-- **설명**: 짧은 단락 1개
-- **Contact**: 테두리 버튼 스타일의 링크 플레이스홀더
-- **배경**: `bg-[#fafbfd]` + `ArchiveBlurAccents` (블루 블러 오브 3개)
-- **레이아웃**: `max-w-5xl`, `px-6`, 상단 헤더는 모바일 세로 스택 → `md` 이상 가로 정렬
+- **높이**: `min-h-dvh` + 고정 헤더 높이만큼 `padding-top`(`pt-[calc(3rem+2.25rem)]` 모바일 2행, `md:pt-[3.25rem]` 단일 행) — 첫 화면을 채우는 **넓은 랜딩**. 상단 행에 **github / velog** 검은 캡슐 버튼(`.site-container` 우측 정렬) 후, 본문(타이틀·설명·contact)은 **가용 높이 안에서 `justify-center`로 세로 중앙**, 하단 `scroll` 힌트는 `shrink-0`으로 아래 고정
+- **정렬**: 본문 블록 **좌측 정렬**(`text-left`), 중앙 몰림 없음
+- **타이틀**: `Lui` / `Archive` **두 줄**(`h1` 내 `span` 2개), `clamp`로 큰 표시 크기
+- **영문 태그라인**: `Fullstack junior dev with a design-driven mind.` (상단)
+- **한글 설명**: 와이어 문구(흐름·화면·기능 연결)
+- **contact**: `ctaPillGlassContactButton`(`h-10`·`md:h-11`, `text-[0.875rem]`·`md:text-sm`) + `lowercase`, `#footer` — 방명록과 **같은 글라스 스킨**, **크기·글자만 큼** — **Liquid Metal 미사용**
+- **소셜**: 내비 바로 아래·히어로 **상단 우측**에 `github` / `velog` — `ctaPillSocialBase`로 **방명록과 같은 `h-8`**, 스타일만 검정 캡슐 + 호버 시 GitHub `#238636`, Velog `#20C997`(`data/contact.ts` 링크)
+- **배경**: `ArchiveBlurAccents` — `sky-200`·`blue-100`·`sky-100` **블러 4덩어리**(우하단 `archive-blob-4`로 살짝 채움), `z-0`·느린 드리프트(`prefers-reduced-motion` 대응)
+- **스크롤 힌트**: 하단 **중앙**, 세로 `scroll` + 아래로 갈수록 진해지는 작은 화살표 + 약한 바운스
+- **컨테이너**: `.site-container`(`max-w-7xl` + 반응형 패딩)
 
 ---
 

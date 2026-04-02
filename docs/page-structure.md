@@ -19,11 +19,13 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 6. `GuestbookSection`
 7. `Footer` — `@/components/layout/Footer`
 
+`app/layout.tsx`에 **`SiteHeader`**(`fixed`) 포함. 히어로 본문에는 내비 중복 없음.
+
 ## 섹션 파일 (`components/sections/`)
 
 | 섹션 | 파일 | 비고 |
 |------|------|------|
-| Hero | `HeroSection.tsx` | 히어로 내비·블러 배경 등 구현됨 |
+| Hero | `HeroSection.tsx` | `min-h-dvh` 랜딩, 좌측 2줄 타이틀·우측 링크·하단 scroll |
 | About | `AboutSection.tsx` | 라벨·메인/보조 카피 구현됨 |
 | Skills | `SkillsSection.tsx` | `skillCategories` 카드 그리드 |
 | Projects | `ProjectsSection.tsx` | `projects` mock 3건, 모바일 가로 스크롤 |
@@ -34,7 +36,7 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 
 | 파일 | 용도 |
 |------|------|
-| `ArchiveBlurAccents.tsx` | Hero 배경 블루 블러 |
+| `ArchiveBlurAccents.tsx` | Hero 배경 sky/blue 블러 4개(우하단 포함, 드리프트) |
 | `SectionLabel.tsx` | About 등 소형 섹션 라벨 |
 
 ## 앵커 `id`
@@ -62,8 +64,9 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 
 ## 레이아웃
 
+- `components/layout/SiteHeader.tsx` — 전역 고정 헤더(와이어 내비)
 - `components/layout/Footer.tsx` — 푸터
-- `components/layout/NavBar.tsx` — 비어 있음(히어로에 내비 포함)
+- `components/layout/NavBar.tsx` — 미사용 시 유지 가능
 
 ## 전역 스타일
 

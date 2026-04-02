@@ -7,7 +7,7 @@ export default function AboutSection() {
       aria-labelledby="about-heading"
       className="border-b border-zinc-200/80 bg-white"
     >
-      <div className="mx-auto max-w-5xl px-6 py-24 md:py-32">
+      <div className="site-container py-24 md:py-32">
         <SectionLabel as="h2" id="about-heading">
           About
         </SectionLabel>

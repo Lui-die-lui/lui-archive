@@ -25,7 +25,7 @@ export default function ProjectsSection() {
       aria-labelledby="projects-heading"
       className="border-b border-zinc-200/80 bg-white"
     >
-      <div className="mx-auto max-w-5xl px-6 py-24 md:py-32">
+      <div className="site-container py-24 md:py-32">
         <h2
           id="projects-heading"
           className="mb-12 text-lg font-medium tracking-tight text-zinc-900"
@@ -37,7 +37,7 @@ export default function ProjectsSection() {
           {projects.map((project) => (
             <li
               key={project.id}
-              className="w-[min(100%,calc(100vw-3rem))] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none md:snap-align-none"
+              className="w-[min(100%,calc(100vw-2.5rem))] max-w-sm shrink-0 snap-center sm:w-[min(100%,calc(100vw-3rem))] md:w-auto md:max-w-none md:snap-align-none"
             >
               <article className="flex h-full min-h-[26rem] flex-col overflow-hidden rounded-lg border border-zinc-200/90 bg-white/90 shadow-[0_1px_0_0_rgba(0,0,0,0.04)]">
                 <div className="relative aspect-[5/3] w-full shrink-0 overflow-hidden bg-zinc-100">

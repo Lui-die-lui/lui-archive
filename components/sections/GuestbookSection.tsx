@@ -8,7 +8,7 @@ export default function GuestbookSection() {
       aria-labelledby="guestbook-heading"
       className="border-b border-zinc-200/80 bg-white"
     >
-      <div className="mx-auto max-w-5xl px-6 py-24 md:py-32">
+      <div className="site-container py-24 md:py-32">
         <h2
           id="guestbook-heading"
           className="text-lg font-medium tracking-tight text-zinc-900"
