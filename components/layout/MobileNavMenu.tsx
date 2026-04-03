@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { siteNavItems } from "@/data/siteNav";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import SkipIntroLoadingLink from "@/components/layout/SkipIntroLoadingLink";
 
 /** 방명록과 같은 높이·글라스 느낌, 테두리 없음 */
 const menuTriggerClass =
@@ -87,14 +87,14 @@ export default function MobileNavMenu() {
             <ul className="divide-y divide-[#D7E4EE]/80">
               {siteNavItems.map((item) => (
                 <li key={item.href} role="none">
-                  <Link
+                  <SkipIntroLoadingLink
                     role="menuitem"
                     href={item.href}
                     className="block py-3.5 text-base font-medium tracking-tight text-zinc-800 transition-colors hover:bg-white/45 active:bg-white/55 sm:py-4 sm:text-[1.0625rem]"
                     onClick={close}
                   >
                     {item.label}
-                  </Link>
+                  </SkipIntroLoadingLink>
                 </li>
               ))}
             </ul>

@@ -80,7 +80,8 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 
 ### Guestbook · Footer
 
-- **Guestbook**: `app/guestbook/page.ts`에서 `GuestbookPanel`(기록 리스트 + 입력 폼) 렌더. admin 좌·guest 우, 파스텔 팔레트 선택, 제출은 클라이언트 상태만 갱신(mock).
+- **Guestbook**: `app/guestbook/page.tsx`에서 `GuestbookPanel`(기록 리스트 + 입력 폼) 렌더. admin 좌·guest 우, 파스텔 팔레트 선택, 제출은 클라이언트 상태만 갱신(mock).
+- **방명록 → 메인 섹션 내비**: 방명록에서 헤더의 `/#about` 등으로 갈 때 메인 인트로 지연을 건너뛰고 앵커 스크롤을 맞추기 위해 `?skipIntro=1` 쿼리 + `ScrollToHash`를 사용. 배경·파일은 [guestbook-main-navigation.md](./guestbook-main-navigation.md).
 - **Footer**: `data/contact.ts` 기반 이메일·SNS만 표시. 히어로 Contact는 `#footer`.
 
 ---

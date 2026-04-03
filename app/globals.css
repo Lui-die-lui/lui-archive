@@ -99,6 +99,16 @@ body {
     will-change: transform, opacity;
   }
 
+  /* 스크롤 기능은 유지하고 스크롤바 UI만 숨김 */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE/Edge legacy */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Edge Chromium */
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-scroll-hint {
       animation: none;

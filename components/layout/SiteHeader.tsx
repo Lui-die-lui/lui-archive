@@ -2,6 +2,7 @@ import Link from "next/link";
 import MobileNavMenu from "@/components/layout/MobileNavMenu";
 import { ctaPillGlassButton } from "@/components/ui/ctaPill";
 import { siteNavItems } from "@/data/siteNav";
+import SkipIntroLoadingLink from "@/components/layout/SkipIntroLoadingLink";
 
 /** 와이어: 좌 로고 · 중앙 4링크(md+) · 우 방명록 + 모바일 메뉴 */
 export default function SiteHeader() {
@@ -11,12 +12,12 @@ export default function SiteHeader() {
       role="banner"
     >
       <div className="site-container flex h-12 items-center justify-between gap-3 md:h-[3.25rem] md:gap-6">
-        <Link
+        <SkipIntroLoadingLink
           href="/#hero"
           className="shrink-0 text-sm font-medium tracking-tight text-zinc-800 transition-colors hover:text-zinc-950 md:text-[0.8125rem]"
         >
           Lui Arc.
-        </Link>
+        </SkipIntroLoadingLink>
 
         <nav
           aria-label="페이지 섹션"
@@ -25,12 +26,12 @@ export default function SiteHeader() {
           <ul className="flex justify-center gap-4 whitespace-nowrap text-[0.8125rem] text-zinc-600 md:text-[0.75rem] lg:gap-5">
             {siteNavItems.map((item) => (
               <li key={item.href} className="shrink-0">
-                <Link
+                <SkipIntroLoadingLink
                   href={item.href}
                   className="transition-colors hover:text-zinc-900"
                 >
                   {item.label}
-                </Link>
+                </SkipIntroLoadingLink>
               </li>
             ))}
           </ul>

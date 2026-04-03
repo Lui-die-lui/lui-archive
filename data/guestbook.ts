@@ -26,40 +26,40 @@ export const guestBubblePalette: {
     id: "lavender",
     label: "라벤더",
     bubbleClass:
-      "border border-violet-200/70 bg-violet-100/90 text-violet-950",
+      "border border-violet-200/55 bg-violet-100/40 text-violet-950",
     swatchClass: "bg-violet-200",
   },
   {
     id: "mint",
     label: "민트",
     bubbleClass:
-      "border border-emerald-200/70 bg-emerald-100/90 text-emerald-950",
+      "border border-emerald-200/55 bg-emerald-100/40 text-emerald-950",
     swatchClass: "bg-emerald-200",
   },
   {
     id: "peach",
     label: "피치",
     bubbleClass:
-      "border border-orange-200/70 bg-orange-100/90 text-orange-950",
+      "border border-orange-200/55 bg-orange-100/40 text-orange-950",
     swatchClass: "bg-orange-200",
   },
   {
     id: "sky",
     label: "스카이",
-    bubbleClass: "border border-sky-200/70 bg-sky-100/90 text-sky-950",
+    bubbleClass: "border border-sky-200/55 bg-sky-100/40 text-sky-950",
     swatchClass: "bg-sky-200",
   },
   {
     id: "rose",
     label: "로즈",
-    bubbleClass: "border border-rose-200/70 bg-rose-100/90 text-rose-950",
+    bubbleClass: "border border-rose-200/55 bg-rose-100/40 text-rose-950",
     swatchClass: "bg-rose-200",
   },
 ];
 
 /** 관리자 말풍선 — 고정 톤 */
 export const adminBubbleClass =
-  "border border-zinc-300/60 bg-zinc-200/90 text-zinc-900";
+  "border border-zinc-300/50 bg-zinc-200/45 text-zinc-900";
 
 export function getGuestBubbleClass(
   color: GuestbookBubbleColor | null,

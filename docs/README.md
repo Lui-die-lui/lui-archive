@@ -11,6 +11,7 @@
 | [data-models.md](./data-models.md) | mock 데이터·타입 구조 |
 | [github-contributions.md](./github-contributions.md) | About GitHub 기여 카드·GraphQL 연동 입문·환경 변수 |
 | [guestbook.md](./guestbook.md) | 방명록 UI/상태/동작 |
+| [guestbook-main-navigation.md](./guestbook-main-navigation.md) | 방명록 → 메인 섹션 이동(인트로 스킵·해시 스크롤) |
 | [admin.md](./admin.md) | 추후 admin 인증·관리 구조 |
 | [work-log.md](./work-log.md) | 작업 단위별 변경 기록 |
 

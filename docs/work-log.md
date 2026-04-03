@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-04-03 — 방명록 입력 박스 높이 축소
+
+- **코드**: `GuestbookPanel` 메시지 영역 `rows`·`min-h`·내부 패딩·구분선·하단 여백·전송 버튼 크기 조정으로 입력 카드 세로 높이 감소.
+- **문서**: `work-log.md`.
+
+## 2026-04-03 — 방명록 → 메인 섹션 내비(인트로 스킵·앵커 보정) 문서화
+
+- **내용**: 방명록에서 헤더 메뉴로 메인 `/#섹션` 이동 시 쿠키 방식의 한계, `?skipIntro=1` 쿼리 + `ScrollToHash` 보정, 관련 파일 목록을 `docs/guestbook-main-navigation.md`에 정리.
+- **문서**: `docs/guestbook.md`(링크 추가), `docs/README.md`(인덱스), `docs/work-log.md`.
+
 ## 2026-04-03 — Guestbook 전용 라우트 분리 + 중앙 레이아웃 정돈
 
 - **코드**: `app/page.tsx`에서 `GuestbookSection` 제거 후 `/guestbook` 진입 버튼만 노출. `SiteHeader` 방명록 링크를 `#guestbook` → `/guestbook`로 변경.
