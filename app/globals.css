@@ -59,19 +59,18 @@ body {
       animation: none;
     }
   }
-
   .archive-blob-2 {
-    animation-duration: 32s;
+    animation-duration: 20s;
     animation-delay: -5s;
   }
-
+  
   .archive-blob-3 {
-    animation-duration: 30s;
+    animation-duration: 18s;
     animation-delay: -10s;
   }
-
+  
   .archive-blob-4 {
-    animation-duration: 36s;
+    animation-duration: 22s;
     animation-delay: -14s;
   }
 

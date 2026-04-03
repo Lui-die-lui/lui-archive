@@ -47,12 +47,13 @@
 
 ## Skills (`SkillsSection.tsx`)
 
+- **톤·배경**: 섹션 `bg-[#f0f7ff]`, 헤더는 `SectionLabel`(Skills → `SKILLS`) + `h2`「기술 스택」+ 부제 한 단락, **가운데 정렬**
 - **제목**: `기술 스택` (`h2`, `id="skills-heading"`)
 - **카드 수**: 4개 — Frontend, Backend, Data & State, Build & Deploy
-- **카드 내용**: 제목(`h3`) + 짧은 설명 단락만
-- **데이터**: `data/skillCategories.ts`의 `skillCategories` 배열
-- **스타일**: 흰/반투명 카드, 얇은 테두리, 미세한 그림자 한 줄
-- **반응형**: `grid-cols-1`(모바일 세로 스택) → `md:grid-cols-2`
+- **카드 UI**: `SkillCategoryCard` — 카테고리 아이콘(`SkillCategoryIcon`) + `h3` + **`techStack`**(굵은 회색 한 줄) + `description`. `rounded-2xl`·흰 배경·은은한 그림자
+- **데이터**: `data/skillCategories.ts`의 `skillCategories`
+- **데스크톱/태블릿 (`md+`)**: `hidden md:grid` **2열 그리드**, 세로 스택으로 한눈에 나열
+- **모바일 (`md` 미만)**: `SkillsMobileCarousel`(클라이언트) — `snap-x snap-mandatory` 가로 스크롤, 슬라이드 너비 `min(22rem, 100vw-3.25rem)`로 **옆 카드 살짝 노출**, `IntersectionObserver`로 **활성 점(dots)** , **이전/다음** 원형 버튼, 영역 `tabIndex={0}` + **좌우 화살표 키**. 카드 `min-h`로 높이 들쭉날쭉 완화
 
 ---
 

@@ -4,12 +4,13 @@ DB 연결 전까지 `data/*.ts`에 타입과 상수를 둡니다.
 
 ## `data/skillCategories.ts`
 
-스킬 섹션 4카드용.
+스킬 섹션 4카드용. 카드에 **기술 스택 한 줄**(`techStack`)과 **설명**(`description`)을 둔다.
 
 ```ts
 export type SkillCategory = {
   id: string;
   title: string;
+  techStack: string;
   description: string;
 };
 

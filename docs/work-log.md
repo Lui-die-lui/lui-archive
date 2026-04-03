@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-04-03 — Skills 모바일 캐러셀·데이터·헤더 정리
+
+- **코드**: `skillCategories`에 `techStack`·스크린샷 문구 반영. `SkillCategoryCard`·`SkillCategoryIcon`·`SkillsMobileCarousel`(snap·dots·이전다음·키보드). `SkillsSection` 중앙 헤더·`bg-[#f0f7ff]`, `md+` 그리드 / 모바일 캐러셀 분기.
+- **문서**: `data-models.md`, `ui-sections.md`, `page-structure.md`, `overview.md`, `work-log.md`.
+
+---
+
 ## 2026-04-03 — About 섹션 가로 중앙 정렬
 
 - **코드**: `AboutSection` `.site-container`에 `flex flex-col items-center text-center`, `SectionLabel`에 `w-full text-center`. `GithubContributionCard`에서 `w-full` 제거해 카드가 중앙에 오도록 함.

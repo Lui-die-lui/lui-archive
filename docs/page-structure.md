@@ -27,10 +27,18 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 |------|------|------|
 | Hero | `HeroSection.tsx` | `min-h-dvh` 랜딩, 좌측 2줄 타이틀·우측 링크·하단 scroll |
 | About | `AboutSection.tsx` | 서버에서 GitHub 기여 요약 fetch → `about/GithubContributionCard`, 라벨·메인/보조 카피 |
-| Skills | `SkillsSection.tsx` | `skillCategories` 카드 그리드 |
+| Skills | `SkillsSection.tsx` | 중앙 헤더·`#f0f7ff` 배경. 모바일 `SkillsMobileCarousel`, `md+` 2열 그리드 + `SkillCategoryCard` |
 | Projects | `ProjectsSection.tsx` | `projects` mock 3건, 모바일 가로 스크롤 |
 | Certs | `CertsSection.tsx` | `certs` mock, 링크 유무 스타일 분기 |
 | Guestbook | `GuestbookSection.tsx` + `guestbook/GuestbookPanel.tsx` | mock 로그 + 로컬 추가 입력 |
+
+## Skills 보조 (`components/skills/`)
+
+| 파일 | 용도 |
+|------|------|
+| `SkillCategoryCard.tsx` | 카테고리 카드(아이콘·제목·techStack·설명) |
+| `SkillCategoryIcon.tsx` | 카테고리별 단순 SVG 아이콘 |
+| `SkillsMobileCarousel.tsx` | 모바일 전용 snap 캐러셀(클라이언트) |
 
 ## About 보조 (`components/about/`)
 
@@ -93,6 +101,10 @@ components/
   layout/
     Footer.tsx
     NavBar.tsx
+  skills/
+    SkillCategoryCard.tsx
+    SkillCategoryIcon.tsx
+    SkillsMobileCarousel.tsx
   sections/
     HeroSection.tsx
     AboutSection.tsx

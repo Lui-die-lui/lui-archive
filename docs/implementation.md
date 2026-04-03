@@ -54,10 +54,10 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 
 ### Skills (`SkillsSection.tsx`)
 
-- 제목: **기술 스택**
-- 카드 4개: Frontend / Backend / Data & State / Build & Deploy (짧은 설명만)
-- 데이터: `data/skillCategories.ts`
-- 반응형: 모바일 1열, `md` 이상 2열 그리드
+- 헤더: `SectionLabel`(Skills) + **기술 스택** + 부제, 중앙 정렬, 배경 `#f0f7ff`
+- 카드 4개: `SkillCategoryCard`(아이콘·제목·`techStack`·설명)
+- 데이터: `data/skillCategories.ts`(`techStack` 포함)
+- 반응형: **`md` 미만** `SkillsMobileCarousel`(snap·dots·버튼), **`md+`** 2열 그리드
 
 ### 재사용 UI
 
@@ -98,7 +98,7 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 
 | 파일 | 용도 |
 |------|------|
-| `data/skillCategories.ts` | 스킬 섹션 4카드(제목·설명) |
+| `data/skillCategories.ts` | 스킬 섹션 4카드(제목·techStack·설명) |
 | `data/skills.ts` | 향후 상세 스킬 리스트용(현재 빈 배열) |
 | `data/projects.ts` | 프로젝트 카드 mock(Omijoy, Odyssey Plan, MU:ZIN 등) |
 | `data/certs.ts` | 수료·자격 카드 mock |
