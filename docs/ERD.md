@@ -70,6 +70,11 @@ erDiagram
     datetime updatedAt
   }
 
+  SiteVisit {
+    string id PK
+    datetime createdAt
+  }
+
   Project ||--o{ ProjectTechLine : "techLines"
   Project ||--o{ ProjectTagOnProject : "tagLinks"
 ```

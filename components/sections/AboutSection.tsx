@@ -35,11 +35,13 @@ export default async function AboutSection() {
           </p>
         </Reveal>
         <Reveal delayMs={260}>
-          <p className="mt-10 max-w-lg text-[15px] leading-7 text-zinc-500 md:mt-8 md:text-sm md:leading-6">
-            새로운 도구와 패턴을 익히는 것을 멈추지 않고, <br />
-            매일의 작은 개선이 쌓이도록 기록하고 되돌아봅니다. <br />
-            화려함보다는 읽기 쉬운 구조와 예측 가능한 동작을 우선합니다.
+          <p className="mt-10 max-w-lg text-[14px] leading-7 text-zinc-500 md:mt-8 md:text-sm md:leading-6">
+            화면과 기능의 흐름을 고민하는 개발자입니다.<br />
+            <br />
+            모르는 부분은 피하지 않고 직접 부딪히며 익히고,<br />
+            매일 꾸준히 코드를 다루며 이해와 감각을 함께 채워가고 있습니다.
           </p>
+          
         </Reveal>
       </div>
     </section>

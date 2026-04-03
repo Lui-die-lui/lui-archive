@@ -3,6 +3,19 @@
 :root {
   --background: #fafbfd;
   --foreground: #18181b;
+  /** 고정 헤더(~72px) 아래로 앵커 스크롤 정렬 */
+  --scroll-padding-top: 4.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--scroll-padding-top);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @theme inline {

@@ -111,7 +111,7 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 
 ## 7. 빌드·규칙
 
-- **의존성**: 본 작업 범위에서 새 패키지 추가 없음.
+- **의존성**: 프로젝트 카드 순서 변경(DnD)에 `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities` 사용. 그 외 초기 스켈레톤 작업 당시에는 신규 패키지 없이 진행.
 - **구조**: `src/`로 이전하지 않음; `app/`, `components/`, `data/`, `public/` 루트 구조 유지.
 - **언어**: 사용자·`AGENTS.md` 규칙에 따라 설명·문서는 **한국어** 우선.
 
@@ -136,3 +136,6 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 | 본 문서 추가 | 위 내용을 `implementation.md`로 통합 정리 |
 | 규약 정비 | `AGENTS.md`의 Docs directory conventions 반영 |
 | Projects/Certs | mock 데이터·섹션 UI·관련 문서 갱신 |
+| Projects CMS | DB 연동 편집·추가·`@dnd-kit` 순서 변경·낙관적 저장 — 상세는 [admin-projects-ui.md](./admin-projects-ui.md) |
+| Certs 순서 | DB 로드·관리자 DnD — [admin-certs-ui.md](./admin-certs-ui.md) |
+| DnD 하이드레이션 | `DndContext`에 고정 `id` prop — [troubleshooting-dnd-hydration.md](./troubleshooting-dnd-hydration.md) |

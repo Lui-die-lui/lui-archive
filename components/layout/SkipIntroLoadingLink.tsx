@@ -2,7 +2,7 @@
 
 import type { LinkProps } from "next/link";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type {
   ComponentPropsWithoutRef,
   MouseEventHandler,
@@ -27,6 +27,7 @@ export default function SkipIntroLoadingLink({
   ...rest
 }: Props) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
     // 방명록에서 메인의 섹션 앵커로 이동할 때만 intro-loading 스킵
@@ -38,7 +39,8 @@ export default function SkipIntroLoadingLink({
       const hashPart = href.slice(1); // "#about" 형태
       const next = `/?${SKIP_QUERY_KEY}=1${hashPart}`;
       onClick?.(e);
-      window.location.assign(next);
+      // 풀 리로드·loading UI 대신 클라이언트 전환 + 상단으로 끌어올리기 방지 → 해시 스크롤과 맞물려 흔들림 완화
+      router.push(next, { scroll: false });
       return;
     }
 

@@ -4,6 +4,21 @@
 
 ---
 
+## 2026-04-03 — 수료 및 자격 관리자 편집·모달·유령 추가
+
+- **코드**: `POST/PATCH/DELETE /api/admin/certs`, 제목 옆 편집 토글·일괄 수정·삭제, `CertEditForm`(모바일 인라인 / 데스크톱 `AdminDismissibleModal`), `AdminNewCertGhost*`, `SectionIntroHeader.titleAction`, `lib/cert-issued-label.ts`.
+- **문서**: `docs/admin-certs-ui.md` 갱신, `docs/admin.md` API 목록.
+
+## 2026-04-03 — 수료 및 자격(Certs) DB 로드·드래그 순서
+
+- **코드**: `lib/certs-db.ts`, `CertsSection` → `CertsSectionClient`, `PATCH /api/admin/certs/reorder`, `CertsSectionSortableItem`(@dnd-kit·`ProjectDragGrip` 재사용).
+- **문서**: `docs/admin-certs-ui.md`, `docs/README.md`, `docs/admin.md`, `docs/admin-projects-ui.md`(링크), `docs/work-log.md`.
+
+## 2026-04-03 — 홈 Projects 관리자 UI·API 문서화
+
+- **문서**: `docs/admin-projects-ui.md` — DB 로드·`POST`/`PATCH`/`DELETE`/reorder API, `ProjectsSectionClient`의 새 프로젝트·낙관적 저장·취소 시 즉시 숨김, `@dnd-kit` 그립 드래그 순서, 관련 파일 목록.
+- **문서**: `docs/README.md` 인덱스, `docs/admin.md`(API 경로·링크), `docs/implementation.md`(변경 이력·의존성 메모), `docs/work-log.md`.
+
 ## 2026-04-03 — Prisma 로컬 절차 문서화
 
 - **문서**: `docs/prisma-local.md` — `.env`의 `DATABASE_URL`, `db push`, `db:generate`, `db:seed`, Studio·npm 스크립트 표.

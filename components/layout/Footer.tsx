@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { contact } from "@/data/contact";
 import { AiOutlineMail, AiOutlineInstagram } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
@@ -17,7 +18,12 @@ export default function Footer() {
 
         <div className="flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
           <p className="text-center text-sm text-zinc-600 md:text-left">
-            <span className="font-medium text-zinc-700">Lui Archive</span>
+            <Link
+              href="/admin/login"
+              className="font-medium text-zinc-700 transition-colors hover:text-zinc-900 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400/50"
+            >
+              Lui Archive
+            </Link>
             <span className="text-zinc-400"> · 2026</span>
           </p>
 

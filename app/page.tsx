@@ -12,9 +12,10 @@ const INTRO_MIN_LOADING_MS = 800;
 export default async function Home({
   searchParams,
 }: {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const raw = searchParams?.skipIntro;
+  const params = (await searchParams) ?? {};
+  const raw = params.skipIntro;
   const skipIntro =
     raw === "1" || (Array.isArray(raw) && raw.includes("1"));
 

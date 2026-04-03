@@ -19,13 +19,13 @@
 
 ## Hero (`HeroSection.tsx`)
 
-- **높이**: `min-h-dvh` + 고정 헤더 높이만큼 `padding-top`(`pt-[calc(3rem+2.25rem)]` 모바일 2행, `md:pt-[3.25rem]` 단일 행) — 첫 화면을 채우는 **넓은 랜딩**. 상단 행에 **github / velog** 검은 캡슐 버튼(`.site-container` 우측 정렬) 후, 본문(타이틀·설명·contact)은 **가용 높이 안에서 `justify-center`로 세로 중앙**, 하단 `scroll` 힌트는 `shrink-0`으로 아래 고정
+- **높이**: `min-h-dvh` + 고정 헤더 `padding-top` — 첫 화면을 채우는 **넓은 랜딩**. 상단 행에 **github / velog**(`ctaPillSocialGlass*`, 살짝 어두운 글라스) 후, 본문은 **가용 높이 안에서 `justify-center`**, 하단 `scroll` 힌트는 `shrink-0`
 - **정렬**: 본문 블록 **좌측 정렬**(`text-left`), 중앙 몰림 없음
 - **타이틀**: `Lui` / `Archive` **두 줄**(`h1` 내 `span` 2개), `clamp`로 큰 표시 크기
 - **영문 태그라인**: `Fullstack junior dev with a design-driven mind.` (상단)
 - **한글 설명**: 와이어 문구(흐름·화면·기능 연결)
-- **contact**: `ctaPillGlassContactButton`(`h-10`·`md:h-11`, `text-[0.875rem]`·`md:text-sm`) + `lowercase`, `#footer` — 방명록과 **같은 글라스 스킨**, **크기·글자만 큼** — **Liquid Metal 미사용**
-- **소셜**: 내비 바로 아래·히어로 **상단 우측**에 `github` / `velog` — `ctaPillSocialBase`로 **방명록과 같은 `h-8`**, 스타일만 검정 캡슐 + 호버 시 GitHub `#238636`, Velog `#20C997`(`data/contact.ts` 링크)
+- **contact**: `ctaPillGlassContactButton`(`h-10`·`md:h-11`) + `lowercase`, `#footer` — 기본 **밝은 글라스**, 호버는 **중간 zinc**(`bg-zinc-700/55` 등, 과한 짙음 방지)
+- **소셜**: `github` / `velog` — `ctaPillSocialGlassBase`·`ctaPillSocialGlassLg` (**짙은 zinc 반투명 + `backdrop-blur-lg` + 인셋 하이라이트**). 호버 시 아주 옅은 브랜드 틴트(GitHub emerald / Velog teal)
 - **배경**: `ArchiveBlurAccents` — `sky-200`·`blue-100`·`sky-100` **블러 4덩어리**(우하단 `archive-blob-4`로 살짝 채움), `z-0`·느린 드리프트(`prefers-reduced-motion` 대응)
 - **스크롤 힌트**: 하단 **중앙**, 세로 `scroll` + 아래로 갈수록 진해지는 작은 화살표 + 약한 바운스
 - **컨테이너**: `.site-container`(`max-w-7xl` + 반응형 패딩)

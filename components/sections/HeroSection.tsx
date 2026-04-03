@@ -1,26 +1,36 @@
 import ArchiveBlurAccents from "@/components/ui/ArchiveBlurAccents";
 import {
   ctaPillGlassContactButton,
-  ctaPillSocialBase,
-  ctaPillSocialLg,
+  ctaPillSocialGlassBase,
+  ctaPillSocialGlassHeroRow,
+  ctaPillSocialGlassLg,
 } from "@/components/ui/ctaPill";
 import { contact } from "@/data/contact";
 
 function HeroSocialLinks({
   className,
+  linkClassName = "",
   size = "sm",
 }: {
   className?: string;
-  size?: "sm" | "lg";
+  /** 모바일 히어로 등: 각 앵커에 추가 (예: 동일 너비 칼럼용 flex-1) */
+  linkClassName?: string;
+  size?: "sm" | "lg" | "heroRow";
 }) {
-  const skin = size === "lg" ? ctaPillSocialLg : ctaPillSocialBase;
+  const skin =
+    size === "lg"
+      ? ctaPillSocialGlassLg
+      : size === "heroRow"
+        ? ctaPillSocialGlassHeroRow
+        : ctaPillSocialGlassBase;
+  const link = `${skin} ${linkClassName}`.trim();
   return (
     <div className={className} aria-label="소셜 링크">
       <a
         href={contact.github.href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${skin} hover:bg-[#238636] hover:shadow-md`}
+        className={`${link} hover:bg-[#238636]/48 hover:text-white hover:shadow-[0_1px_4px_rgba(15,23,42,0.1)] hover:backdrop-blur-xl`}
       >
         GitHub
       </a>
@@ -28,7 +38,7 @@ function HeroSocialLinks({
         href={contact.velog.href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${skin} hover:bg-[#20C997] hover:shadow-md`}
+        className={`${link} hover:bg-[#20C997]/42 hover:text-white hover:shadow-[0_1px_4px_rgba(15,23,42,0.1)] hover:backdrop-blur-xl`}
       >
         Velog
       </a>
@@ -41,7 +51,7 @@ export default function HeroSection() {
     <section
       id="hero"
       aria-labelledby="hero-heading"
-      className="relative box-border flex min-h-dvh flex-col overflow-hidden border-b border-zinc-200/60 bg-[#fafbfd] pt-12 md:pt-[3.25rem]"
+      className="relative box-border flex min-h-dvh flex-col overflow-hidden border-b border-zinc-200/60 bg-[#fafbfd] pt-12 md:pt-14 lg:pt-[3.75rem]"
     >
       <ArchiveBlurAccents />
 
@@ -53,7 +63,7 @@ export default function HeroSection() {
           <div className="flex min-h-0 flex-1 flex-col justify-center py-6 md:py-8 lg:py-10">
             <div className="min-w-0 max-w-2xl text-left">
               <p className="text-[0.8125rem] font-normal leading-relaxed text-zinc-500 md:text-[0.8125rem]">
-                Fullstack junior dev with a design-driven mind.
+              A junior full-stack developer focused on UX, usability, and user flow
               </p>
 
               <h1
@@ -70,13 +80,17 @@ export default function HeroSection() {
               </p>
 
 
-              <div className="mt-8 flex flex-row flex-wrap items-center gap-3 md:mt-10">
+              {/*
+                모바일: heroRow(h-9·0.75rem)·내용 너비 + gap-2.
+                데스크톱: Contact만 lg, 상단에 소셜.
+              */}
+              <div className="mt-6 flex flex-row flex-wrap items-center gap-2 md:mt-8 md:gap-3">
                 <a href="#footer" className={ctaPillGlassContactButton}>
                   Contact
                 </a>
                 <HeroSocialLinks
-                  size="lg"
-                  className="flex flex-wrap gap-2 md:hidden"
+                  size="heroRow"
+                  className="flex flex-row gap-2 md:hidden"
                 />
               </div>
             </div>

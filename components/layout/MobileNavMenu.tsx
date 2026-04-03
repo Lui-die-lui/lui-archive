@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { siteNavItems } from "@/data/siteNav";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import SkipIntroLoadingLink from "@/components/layout/SkipIntroLoadingLink";
@@ -12,7 +13,13 @@ const menuTriggerClass =
 const accordionPanelClass =
   "fixed left-0 right-0 top-12 z-[70] pointer-events-auto border-t border-[#D7E4EE]/90 bg-[#F4F8FB]/94 shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_12px_24px_-12px_rgba(15,23,42,0.08)] backdrop-blur-2xl backdrop-saturate-150 motion-safe:transition-[opacity,transform] motion-safe:duration-200 motion-safe:ease-out md:hidden";
 
-export default function MobileNavMenu() {
+type Props = {
+  showAdminDashboard?: boolean;
+};
+
+export default function MobileNavMenu({
+  showAdminDashboard = false,
+}: Props) {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
@@ -97,6 +104,18 @@ export default function MobileNavMenu() {
                   </SkipIntroLoadingLink>
                 </li>
               ))}
+              {showAdminDashboard ? (
+                <li key="/admin" role="none">
+                  <Link
+                    role="menuitem"
+                    href="/admin"
+                    className="block py-3.5 text-base font-medium tracking-tight text-zinc-800 transition-colors hover:bg-white/45 active:bg-white/55 sm:py-4 sm:text-[1.0625rem]"
+                    onClick={close}
+                  >
+                    dashboard
+                  </Link>
+                </li>
+              ) : null}
             </ul>
           </div>
         </div>

@@ -15,8 +15,18 @@
 | [cms-prisma-design.md](./cms-prisma-design.md) | CMS용 Prisma 스키마·시드·admin 모듈 단위 |
 | [prisma-local.md](./prisma-local.md) | 로컬 Prisma (`db push`, `generate`, `seed`) 절차 |
 | [ERD.md](./ERD.md) | DB ERD (Mermaid) |
-| [admin.md](./admin.md) | 추후 admin 인증·관리 구조 |
+| [admin.md](./admin.md) | 관리자 인증·보호 라우트(`/admin`)·숨은 진입 |
+| [admin-projects-ui.md](./admin-projects-ui.md) | 홈 Projects — DB 편집·추가·순서(DnD)·낙관적 저장·API |
+| [admin-certs-ui.md](./admin-certs-ui.md) | 홈 Certs — DB 로드·순서 변경(DnD)·API |
+| [firebase-admin.md](./firebase-admin.md) | Firebase Auth·Admin·Storage 규칙·COOP·트러블슈팅 |
 | [work-log.md](./work-log.md) | 작업 단위별 변경 기록 |
+
+## 트러블슈팅
+
+| 문서 | 설명 |
+|------|------|
+| [troubleshooting-guestbook-scroll.md](./troubleshooting-guestbook-scroll.md) | 방명록 → 메인 해시 이동 시 화면 흔들림 원인·해결 |
+| [troubleshooting-dnd-hydration.md](./troubleshooting-dnd-hydration.md) | DnD 그립 `@dnd-kit` + Next SSR 하이드레이션 불일치 원인·해결 |
 
 ## 기타 참고
 

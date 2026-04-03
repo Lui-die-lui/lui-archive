@@ -29,7 +29,7 @@ export default function GuestbookLayout({
   return (
     <div className="relative box-border flex h-dvh max-h-dvh flex-col overflow-hidden bg-[linear-gradient(180deg,#f4faff_0%,#f7fcff_42%,#fafbfd_100%)]">
       <ArchiveBlurAccents />
-      <div className="relative z-10 flex min-h-0 flex-1 flex-col overflow-hidden pt-12 md:pt-[3.25rem]">
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col overflow-hidden pt-12 md:pt-14 lg:pt-[3.75rem]">
         {children}
       </div>
     </div>
