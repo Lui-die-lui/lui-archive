@@ -222,6 +222,20 @@ async function main() {
         bubbleColor: GuestbookBubbleColor.MINT,
         createdAt: new Date("2026-03-12T11:15:00.000Z"),
       },
+      {
+        authorType: GuestbookAuthorType.ADMIN,
+        nickname: "Lui",
+        message: "좋은 말씀 감사합니다. 기록해 두었어요.",
+        bubbleColor: null,
+        createdAt: new Date("2026-03-12T18:30:00.000Z"),
+      },
+      {
+        authorType: GuestbookAuthorType.GUEST,
+        nickname: "echo",
+        message: "다음 업데이트도 기대할게요.",
+        bubbleColor: GuestbookBubbleColor.LAVENDER,
+        createdAt: new Date("2026-03-20T09:05:00.000Z"),
+      },
     ],
   });
 
