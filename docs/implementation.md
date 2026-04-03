@@ -76,7 +76,7 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 ## 4. Projects · Certs 섹션
 
 - **Projects**: `data/projects.ts`에 카드용 필드 전체 정의, 3건 mock. `ProjectsSection`에서 모바일 `snap` 가로 스크롤·데스크톱 3열, `liveUrl` 없으면 LIVE 버튼 미표시.
-- **Certs**: `data/certs.ts`에 제목·발급기관·일자·`url`·`hasPublicLink` 정의. `CertsSection`에서 `url` 있으면 링크 카드, 없으면 비클릭 스타일 + `공개 링크 없음`.
+- **Certs**: `data/certs.ts`에 제목·발급기관·일자·`url`·`hasPublicLink`·`avatarText`·`avatarVariant` 정의. `CertCard`로 가로 레이아웃(아바타 열·본문 열). `url` 있으면 링크 카드, `hasPublicLink === false`면 타이틀 우측 `링크 없음`. 세로 정렬은 `items-stretch` + 아바타 열 `items-center` + 본문 `justify-center`.
 
 ### Guestbook · Footer
 

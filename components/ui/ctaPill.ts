@@ -3,10 +3,10 @@
  * 글라스 스킨은 `ctaPillGlass` (모바일 캐러셀 화살표는 `ctaPillGlassIconButton`).
  */
 export const ctaPillSize =
-  "inline-flex h-8 shrink-0 items-center justify-center rounded-full px-3 text-[0.6875rem] font-medium leading-none md:px-3.5 md:text-xs";
+  "inline-flex h-8 shrink-0 items-center justify-center rounded-full px-3 text-[0.6875rem] font-medium leading-none md:px-3 md:text-[0.6875rem]";
 
 export const ctaPillSizeLg =
-  "inline-flex h-10 shrink-0 items-center justify-center rounded-full px-5 text-[0.875rem] font-medium leading-none md:h-11 md:px-6 md:text-sm";
+  "inline-flex h-10 shrink-0 items-center justify-center rounded-full px-5 text-[0.875rem] font-medium leading-none md:h-10 md:px-5 md:text-[0.8125rem]";
 
 export const ctaPillGlass =
   "border border-white/45 bg-white/[0.28] text-zinc-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_1px_2px_rgba(15,23,42,0.05)] backdrop-blur-md backdrop-saturate-150 transition-[background-color,border-color,color,box-shadow] hover:border-white/55 hover:bg-white/[0.38] hover:text-zinc-900 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_2px_8px_rgba(15,23,42,0.06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400/50";

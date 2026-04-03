@@ -7,14 +7,14 @@ export default function Footer() {
       className="border-t border-zinc-200/80 bg-[#fafbfd]"
       aria-labelledby="footer-heading"
     >
-      <div className="site-container py-14 md:py-16">
+      <div className="site-container py-14 md:py-14">
         <h2
           id="footer-heading"
-          className="text-sm font-medium uppercase tracking-[0.18em] text-zinc-400"
+          className="text-sm font-medium uppercase tracking-[0.18em] text-zinc-400 md:text-xs"
         >
           Contact
         </h2>
-        <p className="mt-2 text-sm text-zinc-600">
+        <p className="mt-2 text-sm text-zinc-600 md:text-xs">
           <a
             href={contact.emailHref}
             className="text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-500"
@@ -22,7 +22,7 @@ export default function Footer() {
             {contact.email}
           </a>
         </p>
-        <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-zinc-500">
+        <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-zinc-500 md:mt-5 md:text-xs">
           <li>
             <a
               href={contact.github.href}

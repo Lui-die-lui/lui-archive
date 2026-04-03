@@ -29,7 +29,7 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 | About | `AboutSection.tsx` | 서버에서 GitHub 기여 요약 fetch → `about/GithubContributionCard`, 라벨·메인/보조 카피 |
 | Skills | `SkillsSection.tsx` | 중앙 헤더·`#f0f7ff` 배경. 모바일 `SkillsMobileCarousel`, `md+` 2열 그리드 + `SkillCategoryCard` |
 | Projects | `ProjectsSection.tsx` | `projects` mock 3건, 모바일 가로 스크롤 |
-| Certs | `CertsSection.tsx` | `certs` mock, 링크 유무 스타일 분기 |
+| Certs | `CertsSection.tsx`, `CertCard.tsx` | `certs` mock, 3열 그리드, 아바타·본문 세로 정렬 규칙, 타이틀 행 우측 `링크 없음` |
 | Guestbook | `GuestbookSection.tsx` + `guestbook/GuestbookPanel.tsx` | mock 로그 + 로컬 추가 입력 |
 
 ## Skills 보조 (`components/skills/`)
@@ -112,6 +112,8 @@ components/
     ProjectsSection.tsx
     CertsSection.tsx
     GuestbookSection.tsx
+  certs/
+    CertCard.tsx
   guestbook/
     GuestbookPanel.tsx
   ui/

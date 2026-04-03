@@ -52,19 +52,19 @@ export default function HeroSection() {
 
           <div className="flex min-h-0 flex-1 flex-col justify-center py-6 md:py-8 lg:py-10">
             <div className="min-w-0 max-w-2xl text-left">
-              <p className="text-[0.8125rem] font-normal leading-relaxed text-zinc-500 md:text-sm">
+              <p className="text-[0.8125rem] font-normal leading-relaxed text-zinc-500 md:text-[0.8125rem]">
                 Fullstack junior dev with a design-driven mind.
               </p>
 
               <h1
                 id="hero-heading"
-                className="mt-4 text-[clamp(2.75rem,8vw,5.5rem)] font-semibold leading-[0.98] tracking-tight text-zinc-900 md:mt-5"
+                className="mt-4 text-[clamp(2.75rem,8vw,5.5rem)] font-semibold leading-[0.98] tracking-tight text-zinc-900 md:mt-5 md:text-[clamp(2.25rem,5vw,3.5rem)]"
               >
                 <span className="block">Lui</span>
                 <span className="block">Archive</span>
               </h1>
 
-              <p className="mt-6 max-w-md text-[0.9375rem] leading-relaxed text-zinc-600 md:mt-8 md:text-base">
+              <p className="mt-6 max-w-md text-[0.9375rem] leading-relaxed text-zinc-600 md:mt-7 md:text-[0.9375rem]">
                 사용자의 흐름을 설계하고, <br /> 화면과 기능을 함께 연결하는 것을
                 추구합니다.
               </p>

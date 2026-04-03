@@ -4,6 +4,46 @@
 
 ---
 
+## 2026-04-03 — Projects와 Certs 사이 구분선 제거
+
+- **코드**: `ProjectsSection`의 하단 `border-b`를 제거해서 `Projects`와 `Certs` 사이 구분선을 없앰.
+- **문서**: `work-log.md`.
+
+## 2026-04-03 — Skills 그리드 카드 패딩·정렬(참고 시안)
+
+- **코드**: `SkillCategoryCard` 그리드 전용 `cardShellGrid`(왼쪽 정렬). 패딩 `md:px-12 md:py-10`, 제목·tech·설명 간격 `mt-2`/`mt-3`, `justify-center`로 본문 블록 세로 중앙. `min-h`·`line-clamp` 제거로 자연 높이. `SkillsSection` 그리드 `lg:max-w-[42rem]`.
+- **문서**: `ui-sections.md`, `work-log.md`.
+
+---
+
+## 2026-04-03 — fallback(폴백) 규칙 문서화
+
+- **코드**: (변경 없음) `ProjectCard`의 `ThumbFallback`·`STATUS_CHIP_FALLBACK`와 `CertCard`의 `hasPublicLink === false` 처리(“링크 없음” 배지)를 `docs/ui-sections.md`에 규칙으로 정리.
+- **문서**: `ui-sections.md`, `work-log.md`.
+
+---
+
+## 2026-04-03 — Skills·Projects 카드 본문 타이포 복원
+
+- **코드**: 전역 `md` 타이포 축소 때 같이 줄었던 `SkillCategoryCard`(그리드)·`ProjectCard` 내부 글자를 이전 가독성 수준으로 되돌림(제목·techStack·설명·요약·태그·CTA 등). 카드 높이 맞춤용 `line-clamp`·`min-h`는 유지.
+- **문서**: `ui-sections.md`, `work-log.md`.
+
+---
+
+## 2026-04-03 — Certs 링크 없음 배치·세로 정렬
+
+- **코드**: `CertCard`에서 `hasPublicLink === false`일 때 하단 문구 제거, 타이틀 오른쪽에 `링크 없음` 배지. 카드 `items-stretch`, 아바타 열 `items-center`, 본문 `justify-center`로 세로 정렬 규칙 명시. `data/certs.ts` 주석 정리.
+- **문서**: `data-models.md`, `ui-sections.md`, `implementation.md`, `overview.md`, `page-structure.md`, `work-log.md`.
+
+---
+
+## 2026-04-03 — Certs 스크린샷 정합·데이터·UI
+
+- **코드**: `data/certs.ts`를 SQLD·Google AI Essentials·Anthropic 3건 등 5건으로 교체, `CertAvatarVariant`·`avatarText` 추가. `CertCard` 신설(가로 레이아웃·아바타 색조). `CertsSection`에 `SectionLabel` **Certs**·Projects와 동일 중앙 헤더·`lg:grid-cols-3` 그리드.
+- **문서**: `data-models.md`, `ui-sections.md`, `implementation.md`, `overview.md`, `page-structure.md`, `work-log.md`.
+
+---
+
 ## 2026-04-03 — Skills 모바일 캐러셀·데이터·헤더 정리
 
 - **코드**: `skillCategories`에 `techStack`·스크린샷 문구 반영. `SkillCategoryCard`·`SkillCategoryIcon`·`SkillsMobileCarousel`(snap·dots·이전다음·키보드). `SkillsSection` 중앙 헤더·`bg-[#f0f7ff]`, `md+` 그리드 / 모바일 캐러셀 분기.

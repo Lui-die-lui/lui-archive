@@ -47,16 +47,20 @@ export const projects: Project[];
 
 ## `data/certs.ts`
 
-수료·자격 카드 mock. `url`이 있으면 카드 전체가 외부 링크(`target="_blank"`). 없으면 점선 테두리·비클릭 스타일이며 하단에 `공개 링크 없음` 표시.
+수료·자격 카드 mock. `url`이 있으면 카드 전체가 외부 링크(`target="_blank"`). 없으면 `<div>` 비클릭. `hasPublicLink === false`이면 타이틀 행 오른쪽에 `링크 없음` 배지. 원형 아바타는 `avatarText`·`avatarVariant`(`han` | `google` | `anthropic`)로 색·글자를 맞춤.
 
 ```ts
+export type CertAvatarVariant = "han" | "google" | "anthropic";
+
 export type Cert = {
   id: string;
   title: string;
   issuer: string;
-  issuedAt: string;
+  issuedAt: string; // 화면 표기 (예: Mar 2026)
   url: string | null;
   hasPublicLink: boolean;
+  avatarText: string;
+  avatarVariant: CertAvatarVariant;
 };
 
 export const certs: Cert[];

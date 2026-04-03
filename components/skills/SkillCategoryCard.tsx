@@ -6,8 +6,9 @@ type Props = {
   variant?: "grid" | "carousel";
 };
 
-const cardShell =
-  "rounded-3xl border border-zinc-200/70 bg-white text-center shadow-[0_8px_32px_-8px_rgba(15,23,42,0.1),0_2px_8px_-2px_rgba(15,23,42,0.06)]";
+/** 데스크톱 그리드: 참고안과 같이 왼쪽 정렬·넉넉한 좌우 패딩·본문 블록 세로 중앙 */
+const cardShellGrid =
+  "rounded-3xl border border-zinc-200/70 bg-white text-left shadow-[0_8px_32px_-8px_rgba(15,23,42,0.08),0_2px_8px_-2px_rgba(15,23,42,0.05)]";
 
 /** 캐러셀: 래퍼가 그림자 담당 · 본문은 얕은 그림자 + absolute 장식을 radius에 맞추기 위해 overflow-hidden */
 const cardShellCarousel =
@@ -20,7 +21,7 @@ export default function SkillCategoryCard({
   if (variant === "grid") {
     return (
       <article
-        className={`flex h-full flex-col px-8 py-8 md:px-10 md:py-8 ${cardShell}`}
+        className={`flex h-full min-h-0 w-full flex-col justify-center px-6 py-8 md:px-12 md:py-10 ${cardShellGrid}`}
       >
         <h3 className="text-lg font-bold tracking-tight text-zinc-900 md:text-xl">
           <span aria-hidden className="mr-1.5">
@@ -28,10 +29,10 @@ export default function SkillCategoryCard({
           </span>
           {category.title}
         </h3>
-        <p className="mt-4 text-sm font-medium leading-relaxed text-zinc-600 md:mt-5 md:text-[0.9375rem]">
+        <p className="mt-2 text-sm font-medium leading-snug text-zinc-600 md:mt-2 md:text-[0.9375rem] md:leading-snug">
           {category.techStack}
         </p>
-        <p className="mt-4 text-[0.9375rem] leading-relaxed text-zinc-500 md:mt-5 md:text-base md:leading-7">
+        <p className="mt-3 text-[0.9375rem] leading-relaxed text-zinc-500 md:mt-3 md:text-base md:leading-relaxed">
           {category.description}
         </p>
       </article>

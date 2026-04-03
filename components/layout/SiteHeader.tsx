@@ -12,7 +12,7 @@ export default function SiteHeader() {
       <div className="site-container flex h-12 items-center justify-between gap-3 md:h-[3.25rem] md:gap-6">
         <a
           href="#hero"
-          className="shrink-0 text-sm font-medium tracking-tight text-zinc-800 transition-colors hover:text-zinc-950"
+          className="shrink-0 text-sm font-medium tracking-tight text-zinc-800 transition-colors hover:text-zinc-950 md:text-[0.8125rem]"
         >
           Lui Arc.
         </a>
@@ -21,7 +21,7 @@ export default function SiteHeader() {
           aria-label="페이지 섹션"
           className="absolute left-1/2 hidden -translate-x-1/2 md:block"
         >
-          <ul className="flex justify-center gap-4 whitespace-nowrap text-[0.8125rem] text-zinc-600 lg:gap-5">
+          <ul className="flex justify-center gap-4 whitespace-nowrap text-[0.8125rem] text-zinc-600 md:text-[0.75rem] lg:gap-5">
             {siteNavItems.map((item) => (
               <li key={item.href} className="shrink-0">
                 <a

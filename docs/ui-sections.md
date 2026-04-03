@@ -50,9 +50,11 @@
 - **톤·배경**: 섹션 `bg-[#f0f7ff]`, 헤더는 `SectionLabel`(Skills → `SKILLS`) + `h2`「기술 스택」+ 부제 한 단락, **가운데 정렬**
 - **제목**: `기술 스택` (`h2`, `id="skills-heading"`)
 - **카드 수**: 4개 — Frontend, Backend, Data & State, Build & Deploy
-- **카드 UI**: `SkillCategoryCard` — 카테고리 아이콘(`SkillCategoryIcon`) + `h3` + **`techStack`**(굵은 회색 한 줄) + `description`. `rounded-2xl`·흰 배경·은은한 그림자
+- **카드 UI**: `SkillCategoryCard` — 모바일 캐러셀은 가운데 정렬·별도 크롬. **그리드(`md+`)** 는 `rounded-3xl`·얇은 테두리·흰 배경, 본문 **왼쪽 정렬**
+- **그리드 카드 패딩·간격**: `px-6 py-8`, `md:px-12 md:py-10`(참고안에 가깝게 넉넉한 인셋). 제목→techStack `mt-2`, techStack→설명 `mt-3`. 카드는 `justify-center`로 텍스트 블록을 세로 중앙에 두고, 행 높이가 맞을 때 여백이 위·아래로 균형 있게 잡힘
+- **카드 타이포(그리드)**: 제목 `md:text-xl`, techStack·설명은 위계 유지(`md:text-base` 설명 등)
 - **데이터**: `data/skillCategories.ts`의 `skillCategories`
-- **데스크톱/태블릿 (`md+`)**: `hidden md:grid` **2열 그리드**, 세로 스택으로 한눈에 나열
+- **데스크톱/태블릿 (`md+`)**: `hidden md:grid` **1열** 스택, 리스트 `lg:max-w-[42rem]`
 - **모바일 (`md` 미만)**: `SkillsMobileCarousel`(클라이언트) — `snap-x snap-mandatory` 가로 스크롤, 슬라이드 너비 `min(22rem, 100vw-3.25rem)`로 **옆 카드 살짝 노출**, `IntersectionObserver`로 **활성 점(dots)** , **이전/다음** 원형 버튼, 영역 `tabIndex={0}` + **좌우 화살표 키**. 카드 `min-h`로 높이 들쭉날쭉 완화
 
 ---
@@ -64,18 +66,28 @@
 - **카드 필드**: 제목, `statusChips`, 요약, 이미지(`image`가 `null`이면 그라데이션 플레이스홀더), `techTags`, README / LIVE 링크
 - **LIVE**: `liveUrl`이 있을 때만 버튼 렌더
 - **높이**: 카드 `min-h` + flex 컬럼으로 시각적 높이 정렬
+- **카드 타이포**: `ProjectCard` 본문(제목·요약·태그·README/LIVE)은 데스크톱에서도 과도하게 축소하지 않음(예: 제목 `md:text-base`, 요약 `md:text-sm`, 태그·버튼 `11px` 유지)
 - **모바일**: 가로 스크롤 + `snap-x` / `snap-center` (캐러셀 친화). `md` 이상 3열 그리드
 - **배경**: `bg-white`, 상하 패딩은 Skills와 동일 계열
 
 ---
 
-## Certs (`CertsSection.tsx`)
+## 폴백(Fallback) 규칙
 
-- **제목**: `수료 및 자격` (`h2`, `id="certs-heading"`)
-- **부제**: 고정 카피 한 줄(스펙 문구)
-- **데이터**: `data/certs.ts`의 `certs`
-- **클릭**: `url`이 있는 카드만 `<a>`로 감싸 호버·포커스 링. `url` 없음 → `<div>`, `cursor-default`, 점선 테두리·연한 배경으로 비클릭 느낌
-- **공개 링크 없음**: `url`이 없을 때 하단에 표시(SQLD 등)
+- **프로젝트 썸네일 폴백**: `ProjectCard`에서 `project.image === null`이면 `ThumbFallback`을 렌더합니다(그라데이션 박스 + 제목 라벨로 대체).
+- **상태 칩 폴백**: `ProjectCard`에서 `statusChips` 값이 `STATUS_CHIP_STYLES`에 없으면 기본 스타일 `STATUS_CHIP_FALLBACK`을 적용합니다.
+- **인증/링크 폴백(자격증)**: `CertCard`에서 `hasPublicLink === false`이면 카드 전체 링크를 만들지 않고, 대신 카드 내부에 `링크 없음` 배지를 표시합니다.
+
+---
+
+## Certs (`CertsSection.tsx` + `CertCard.tsx`)
+
+- **헤더**: Projects·Skills와 동일 패턴 — 중앙 `SectionLabel` **Certs**, `h2` **수료 및 자격**, 부제 한 줄
+- **그리드**: `lg:grid-cols-3`, `md:grid-cols-2`, 모바일 1열(첫 줄 3·둘째 줄 2 배치)
+- **카드**: 연한 블루그레이 배경·얇은 테두리·둥근 모서리. **왼쪽 원형 아바타**(`avatarVariant`별 색) + 오른쪽 제목·`발급처 · issuedAt` 한 줄
+- **클릭**: `url` 있으면 카드 전체 `<a>`, 호버 시 테두리·배경 살짝 진하게. `url` 없으면 `<div>`·`cursor-default`
+- **링크 없음**: `hasPublicLink === false`일 때 타이틀과 한 줄(`items-center`)로 두고, 오른쪽에 `링크 없음` 배지(SQLD 등)
+- **세로 정렬**: 카드는 `items-stretch`로 행 높이에 맞춤. 아바타는 좌측 열에서만 `items-center`로 원을 세로 중앙에 두고, 본문 열은 `justify-center`로 제목·발급 정보 블록을 세로 중앙에 배치
 - **배경**: `bg-[#fafbfd]`
 
 ---

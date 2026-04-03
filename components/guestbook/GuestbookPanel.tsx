@@ -64,7 +64,7 @@ export default function GuestbookPanel({ initialEntries }: Props) {
   return (
     <div className="rounded-lg border border-zinc-200/90 bg-zinc-50/50 shadow-[0_1px_0_0_rgba(0,0,0,0.03)]">
       <div
-        className="max-h-[min(28rem,55vh)] space-y-5 overflow-y-auto p-4 md:p-5"
+        className="max-h-[min(28rem,55vh)] space-y-5 overflow-y-auto p-4 md:space-y-4 md:p-4"
         role="log"
         aria-label="방명록 기록"
       >
@@ -80,7 +80,7 @@ export default function GuestbookPanel({ initialEntries }: Props) {
               className={`flex w-full ${isAdmin ? "justify-start" : "justify-end"}`}
             >
               <div
-                className={`max-w-[min(100%,20rem)] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed shadow-sm md:max-w-[24rem] ${bubbleClass}`}
+                className={`max-w-[min(100%,20rem)] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed shadow-sm md:max-w-[22rem] md:px-3 md:py-2 md:text-[0.8125rem] md:leading-relaxed ${bubbleClass}`}
               >
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                   <span className="text-xs font-semibold tracking-tight opacity-90">
@@ -102,10 +102,10 @@ export default function GuestbookPanel({ initialEntries }: Props) {
 
       <form
         onSubmit={handleSubmit}
-        className="border-t border-zinc-200/80 bg-white/95 p-4 md:p-5"
+        className="border-t border-zinc-200/80 bg-white/95 p-4 md:p-4"
         aria-label="방명록 남기기"
       >
-        <p className="mb-3 text-xs text-zinc-500">
+        <p className="mb-3 text-xs text-zinc-500 md:mb-2.5 md:text-[0.6875rem]">
           기록만 남기는 공간입니다. 실시간 채팅이 아니에요.
         </p>
         <div className="flex flex-col gap-3">
@@ -119,7 +119,7 @@ export default function GuestbookPanel({ initialEntries }: Props) {
             onChange={(e) => setNickname(e.target.value)}
             placeholder="닉네임"
             maxLength={32}
-            className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+            className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 md:py-1.5 md:text-xs"
           />
           <label className="sr-only" htmlFor="gb-message">
             메시지
@@ -131,10 +131,10 @@ export default function GuestbookPanel({ initialEntries }: Props) {
             placeholder="메시지를 남겨 주세요"
             rows={3}
             maxLength={500}
-            className="resize-y rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+            className="resize-y rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 md:py-1.5 md:text-xs"
           />
           <div>
-            <p className="mb-2 text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+            <p className="mb-2 text-[11px] font-medium uppercase tracking-wider text-zinc-400 md:mb-1.5 md:text-[10px]">
               말풍선 색
             </p>
             <div className="flex flex-wrap gap-2" role="group" aria-label="말풍선 색 선택">
@@ -159,7 +159,7 @@ export default function GuestbookPanel({ initialEntries }: Props) {
           </div>
           <button
             type="submit"
-            className="self-start rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 transition-colors hover:border-zinc-400"
+            className="self-start rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 transition-colors hover:border-zinc-400 md:px-3 md:py-1.5 md:text-xs"
           >
             기록 남기기
           </button>

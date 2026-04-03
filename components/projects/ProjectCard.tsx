@@ -113,7 +113,7 @@ export default function ProjectCard({ project }: Props) {
   const techExtra = project.techTags.length - techVisible.length;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200/55 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-[box-shadow,border-color] duration-200 hover:border-zinc-200/90 hover:shadow-[0_8px_28px_-8px_rgba(15,23,42,0.08)]">
+    <article className="group flex h-full w-full min-h-0 flex-col overflow-hidden rounded-2xl border border-zinc-200/55 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-[box-shadow,border-color] duration-200 hover:border-zinc-200/90 hover:shadow-[0_8px_28px_-8px_rgba(15,23,42,0.08)]">
       <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-zinc-100">
         <div
           className="pointer-events-none absolute inset-0 z-[1] ring-1 ring-inset ring-zinc-900/[0.04]"
@@ -145,12 +145,12 @@ export default function ProjectCard({ project }: Props) {
         ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col px-4 pb-4 pt-3.5 md:px-5 md:pb-5 md:pt-4">
-        <h3 className="text-[0.9375rem] font-semibold uppercase tracking-[0.06em] text-zinc-900">
+      <div className="flex min-h-0 flex-1 flex-col px-4 pb-4 pt-3.5 md:px-5 md:pb-5 md:pt-4">
+        <h3 className="text-[0.9375rem] font-semibold uppercase tracking-[0.06em] text-zinc-900 md:text-base">
           {project.title}
         </h3>
 
-        <p className="mt-2 text-[0.8125rem] leading-relaxed text-zinc-600 md:mt-3 md:text-sm">
+        <p className="mt-2 text-[0.8125rem] leading-relaxed text-zinc-600 md:mt-3 md:min-h-[4.75rem] md:text-sm md:leading-relaxed md:line-clamp-4">
           {project.summary}
         </p>
 

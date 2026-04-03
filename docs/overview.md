@@ -13,7 +13,7 @@
 | 2 | About | `about` | 소개 라벨, GitHub 기여 소형 카드(서버 API), 메인·보조 카피 |
 | 3 | Skills | `skills` | SKILLS 라벨·부제·기술 스택. 모바일 1장 캐러셀, 태블릿↑ 2열 그리드 |
 | 4 | Projects | `projects` | 프로젝트 카드 3건, mock 데이터·가로 스크롤(모바일) |
-| 5 | Certs | `certs` | 수료·자격 카드, 링크 유무에 따른 클릭 스타일 |
+| 5 | Certs | `certs` | 수료·자격 그리드, 아바타+텍스트 카드, `hasPublicLink` 시 타이틀 우측 `링크 없음` |
 | 6 | Guestbook | `guestbook` | 아카이브형 방명록 로그 + 로컬 mock 입력([guestbook.md](./guestbook.md)) |
 | 7 | Footer | `footer` | 연락처 전용(이메일·SNS 링크, `data/contact.ts`) |
 
