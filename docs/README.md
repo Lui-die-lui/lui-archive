@@ -12,6 +12,9 @@
 | [github-contributions.md](./github-contributions.md) | About GitHub 기여 카드·GraphQL 연동 입문·환경 변수 |
 | [guestbook.md](./guestbook.md) | 방명록 UI/상태/동작 |
 | [guestbook-main-navigation.md](./guestbook-main-navigation.md) | 방명록 → 메인 섹션 이동(인트로 스킵·해시 스크롤) |
+| [cms-prisma-design.md](./cms-prisma-design.md) | CMS용 Prisma 스키마·시드·admin 모듈 단위 |
+| [prisma-local.md](./prisma-local.md) | 로컬 Prisma (`db push`, `generate`, `seed`) 절차 |
+| [ERD.md](./ERD.md) | DB ERD (Mermaid) |
 | [admin.md](./admin.md) | 추후 admin 인증·관리 구조 |
 | [work-log.md](./work-log.md) | 작업 단위별 변경 기록 |
 

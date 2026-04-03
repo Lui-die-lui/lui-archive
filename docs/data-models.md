@@ -2,6 +2,8 @@
 
 DB 연결 전까지 `data/*.ts`에 타입과 상수를 둡니다.
 
+**Prisma 도입 후**: 스키마·모델 설명·시드 구조는 [cms-prisma-design.md](./cms-prisma-design.md)를 기준으로 하고, 본 문서의 mock 설명은 점진적으로 “DB 필드 매핑”으로 갱신하면 됩니다.
+
 ## `data/skillCategories.ts`
 
 스킬 섹션 4카드용. 카드에 **기술 스택 한 줄**(`techStack`)과 **설명**(`description`)을 둔다.

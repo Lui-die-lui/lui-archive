@@ -1,0 +1,168 @@
+// 포트폴리오 CMS — PostgreSQL (Neon 등) + Prisma
+// 관리자 1인 운영 전제, 일반 사용자 계정 테이블 없음
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Skills — 카드 4종은 앱에서 slug로 고정, DB에는 "내용"만
+// ---------------------------------------------------------------------------
+
+enum SkillCategorySlug {
+  FRONTEND
+  BACKEND
+  DATA_STATE
+  BUILD_DEPLOY
+}
+
+model SkillCategoryContent {
+  slug SkillCategorySlug @id
+
+  /// 기술 나열(가운뎃점 구분 등) — UI는 기존 `techStack` 문자열과 동일 역할
+  techStack   String
+  /// 카드 본문 설명
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Projects — CRUD, 썸네일 URL은 Firebase Storage 업로드 후 저장
+// ---------------------------------------------------------------------------
+
+enum ProjectKindTag {
+  TEAM
+  PERSONAL
+  IN_PROGRESS
+}
+
+model Project {
+  id String @id @default(cuid())
+
+  /// 공개 식별자(기존 mock의 `id`: omijoy 등). URL·seed 안정성용
+  publicId String @unique
+
+  title   String
+  summary String
+
+  /// Firebase Storage 등 HTTPS URL. null이면 UI에서 Odyssey Plan식 플레이스홀더
+  thumbnailUrl String?
+
+  readmeUrl String
+  /// null/빈값이면 LIVE 버튼 미노출(프론트에서 `deployUrl` 존재 여부로 판단)
+  deployUrl String?
+
+  sortOrder Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  techLines ProjectTechLine[]
+  tagLinks  ProjectTagOnProject[]
+}
+
+model ProjectTechLine {
+  id String @id @default(cuid())
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  sortOrder Int    @default(0)
+  label     String
+
+  @@index([projectId])
+}
+
+model ProjectTagOnProject {
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  tag ProjectKindTag
+
+  @@id([projectId, tag])
+}
+
+// ---------------------------------------------------------------------------
+// Certifications — CRUD
+// ---------------------------------------------------------------------------
+
+enum CertAvatarVariant {
+  HAN
+  GOOGLE
+  ANTHROPIC
+}
+
+model Certification {
+  id String @id @default(cuid())
+
+  title  String
+  issuer String
+
+  /// 화면 표기용 자유 문자열 (예: Mar 2026) — 기존 `issuedAt` 문자열과 동일
+  issuedAtLabel String
+
+  /// 외부 링크. null이면 카드 비클릭
+  url String?
+
+  /// true면 링크 이동, false면 「링크 없음」 배지 (SQLD 등)
+  hasPublicLink Boolean
+
+  avatarText    String
+  avatarVariant CertAvatarVariant
+
+  sortOrder Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Guestbook — 방문자 작성, 관리자만 삭제·설정
+// ---------------------------------------------------------------------------
+
+enum GuestbookAuthorType {
+  ADMIN
+  GUEST
+}
+
+enum GuestbookBubbleColor {
+  LAVENDER
+  MINT
+  PEACH
+  SKY
+  ROSE
+}
+
+model GuestbookEntry {
+  id String @id @default(cuid())
+
+  authorType GuestbookAuthorType @default(GUEST)
+  nickname   String
+  message    String
+
+  /// ADMIN이면 null 허용(기존 UI의 관리자 말풍선)
+  bubbleColor GuestbookBubbleColor?
+
+  createdAt DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// Site-wide 설정 (싱글톤 행 id = 1)
+// ---------------------------------------------------------------------------
+
+model SiteSettings {
+  /// 싱글톤: 애플리케이션에서 항상 `id === 1` 행만 조회·갱신
+  id Int @id
+
+  /// false면 방명록 POST 차단 + 프론트 입력 비활성화
+  guestbookSubmissionsOpen Boolean @default(true)
+
+  updatedAt DateTime @updatedAt
+}

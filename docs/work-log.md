@@ -4,6 +4,23 @@
 
 ---
 
+## 2026-04-03 — Prisma 로컬 절차 문서화
+
+- **문서**: `docs/prisma-local.md` — `.env`의 `DATABASE_URL`, `db push`, `db:generate`, `db:seed`, Studio·npm 스크립트 표.
+- **문서**: `docs/cms-prisma-design.md` §5에서 상세 링크, `docs/README.md` 인덱스.
+- **문서**: `work-log.md`.
+
+## 2026-04-03 — ERD 문서(Mermaid) 추가
+
+- **문서**: `docs/ERD.md` — `prisma/schema.prisma` 기준 `erDiagram`. `docs/README.md` 인덱스 링크.
+- **문서**: `work-log.md`.
+
+## 2026-04-03 — CMS용 Prisma 스키마·시드·설계 문서(1단계)
+
+- **코드**: `prisma/schema.prisma`, `prisma/seed.ts`, `lib/prisma.ts` 추가. `package.json`에 Prisma·시드 스크립트.
+- **문서**: `docs/cms-prisma-design.md` 신설, `docs/admin.md`·`docs/data-models.md`·`docs/README.md` 갱신. `.env.example`에 `DATABASE_URL` 예시.
+- **문서**: `work-log.md`.
+
 ## 2026-04-03 — 방명록 입력 박스 높이 축소
 
 - **코드**: `GuestbookPanel` 메시지 영역 `rows`·`min-h`·내부 패딩·구분선·하단 여백·전송 버튼 크기 조정으로 입력 카드 세로 높이 감소.
