@@ -1,59 +1,74 @@
 import { contact } from "@/data/contact";
+import { AiOutlineMail, AiOutlineInstagram } from "react-icons/ai";
+import { FaGithub } from "react-icons/fa";
+import { SiVelog } from "react-icons/si";
 
 export default function Footer() {
   return (
     <footer
       id="footer"
-      className="border-t border-zinc-200/80 bg-[#fafbfd]"
+      className="border-t border-zinc-200/80 bg-[#f0f7ff]"
       aria-labelledby="footer-heading"
     >
-      <div className="site-container py-14 md:py-14">
-        <h2
-          id="footer-heading"
-          className="text-sm font-medium uppercase tracking-[0.18em] text-zinc-400 md:text-xs"
-        >
+      <div className="site-container py-12 md:py-16">
+        <h2 id="footer-heading" className="sr-only">
           Contact
         </h2>
-        <p className="mt-2 text-sm text-zinc-600 md:text-xs">
-          <a
-            href={contact.emailHref}
-            className="text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-500"
-          >
-            {contact.email}
-          </a>
-        </p>
-        <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-zinc-500 md:mt-5 md:text-xs">
-          <li>
+
+        <div className="flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
+          <p className="text-sm text-zinc-600">
+            <span className="font-medium text-zinc-700">Lui Archive</span>
+            <span className="text-zinc-400"> · 2026</span>
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm md:justify-end">
+            <a
+              href={contact.emailHref}
+              className="group flex items-center gap-2.5 text-zinc-600 transition-colors hover:text-zinc-900"
+            >
+              <AiOutlineMail className="h-4 w-4 text-zinc-500 transition-colors group-hover:text-zinc-800" />
+              <span className="break-all transition-colors group-hover:text-zinc-800">
+                {contact.email}
+              </span>
+            </a>
+
             <a
               href={contact.github.href}
-              className="transition-colors hover:text-zinc-800"
               target="_blank"
               rel="noopener noreferrer"
+              className="group flex items-center gap-2.5 text-zinc-600 transition-colors hover:text-zinc-900"
             >
-              {contact.github.label}
+              <FaGithub className="h-4 w-4 text-zinc-500 transition-colors group-hover:text-zinc-800" />
+              <span className="transition-colors group-hover:text-zinc-800">
+                {contact.github.label}
+              </span>
             </a>
-          </li>
-          <li>
+
             <a
               href={contact.velog.href}
-              className="transition-colors hover:text-zinc-800"
               target="_blank"
               rel="noopener noreferrer"
+              className="group flex items-center gap-2.5 text-zinc-600 transition-colors hover:text-zinc-900"
             >
-              {contact.velog.label}
+              <SiVelog className="h-4 w-4 text-zinc-500 transition-colors group-hover:text-zinc-800" />
+              <span className="transition-colors group-hover:text-zinc-800">
+                {contact.velog.label}
+              </span>
             </a>
-          </li>
-          <li>
+
             <a
               href={contact.instagram.href}
-              className="transition-colors hover:text-zinc-800"
               target="_blank"
               rel="noopener noreferrer"
+              className="group flex items-center gap-2.5 text-zinc-600 transition-colors hover:text-zinc-900"
             >
-              {contact.instagram.label}
+              <AiOutlineInstagram className="h-4 w-4 text-zinc-500 transition-colors group-hover:text-zinc-800" />
+              <span className="transition-colors group-hover:text-zinc-800">
+                {contact.instagram.label}
+              </span>
             </a>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </footer>
   );

@@ -34,7 +34,7 @@
 
 ## About (`AboutSection.tsx`)
 
-- **섹션 라벨**: `SectionLabel`을 `h2` + `id="about-heading"` + `className="w-full text-center"` (접근성·`#about` 앵커 유지)
+- **섹션 라벨**: `SectionLabel`을 `h2` + `id="about-heading"` + `className="w-full text-center"` (접근성·`/#about` 앵커 유지)
 - **라벨 텍스트**: `About`
 - **GitHub 기여 카드**: `GithubContributionCard` — 라벨 바로 아래, 보조 카드 **`max-w-[20rem]` / `md:max-w-[22rem]`**, `rounded-2xl`·`p-5`/`md:p-6`. **This year:** 한 줄 굵은 표기(`text-base`/`md:text-lg`) + **Today**(`text-sm`/`md:text-[0.9375rem]`). 5×7 블록 **`size-[10px]`/`md:size-3`**, `gap-1`/`md:gap-1.5`. `fetchContributionSummary()` ([github-contributions.md](./github-contributions.md)). 실패 시 `—`·빈 그리드
 - **메인 카피**(큰 본문):  
@@ -94,11 +94,11 @@
 
 ## Guestbook (`GuestbookSection.tsx` + `GuestbookPanel.tsx`)
 
-- **제목**: `방명록` (`h2`, `id="guestbook-heading"`)
-- **UI**: 아카이브 로그형 스크롤 영역 + 하단 입력(닉네임·메시지·파스텔 색 5종)
-- **정렬**: `admin` 왼쪽 고정색 말풍선, `guest` 오른쪽 선택 색 말풍선
+- **제목**: `방명록` (`h1`, `id="guestbook-heading"`)
+- **UI**: 중앙 정렬 컨테이너 안에서 메시지 리스트(스크롤 카드)와 입력 폼(별도 입력 카드)이 위아래로 배치
+- **정렬**: `admin`은 왼쪽, `guest`는 오른쪽에 말풍선 카드가 놓이되 내부 폭을 제한해 “게시판처럼 퍼지지 않는” 기록 카드 느낌 유지
 - **실시간 UI 없음**: 타이핑/온라인/읽음 표시 없음
-- **배경**: `bg-white`, 섹션 패딩은 다른 본문 섹션과 동일 계열
+- **배경**: 섹션 `bg-[#fafbfd]`, 패널은 `GuestbookPanel`에서 반투명 카드 스타일로 처리
 - **상세**: [guestbook.md](./guestbook.md)
 
 ---

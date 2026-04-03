@@ -6,7 +6,7 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 
 - **섹션 단위 컴포넌트**: `app/page.tsx`는 조립만 담당.
 - **데이터 분리**: 화면에 넣을 목 데이터는 `data/`에 정의.
-- **앵커 내비**: 섹션·푸터에 고정 `id`로 `#hero`, `#about` 등 이동 가능.
+- **앵커 내비**: 섹션·푸터에 고정 `id`로 `/#hero`, `/#about` 등 이동 가능.
 - **접근성**: `<section aria-labelledby="…">`와 제목 `id`를 대응.
 
 ## `app/page.tsx` 렌더 순서
@@ -16,7 +16,7 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 3. `SkillsSection`
 4. `ProjectsSection`
 5. `CertsSection`
-6. `GuestbookSection`
+6. Guestbook CTA (`/guestbook` 진입 버튼)
 7. `Footer` — `@/components/layout/Footer`
 
 `app/layout.tsx`에 **`SiteHeader`**(`fixed`) 포함. 히어로 본문에는 내비 중복 없음.
@@ -30,7 +30,7 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 | Skills | `SkillsSection.tsx` | 중앙 헤더·`#f0f7ff` 배경. 모바일 `SkillsMobileCarousel`, `md+` 2열 그리드 + `SkillCategoryCard` |
 | Projects | `ProjectsSection.tsx` | `projects` mock 3건, 모바일 가로 스크롤 |
 | Certs | `CertsSection.tsx`, `CertCard.tsx` | `certs` mock, 3열 그리드, 아바타·본문 세로 정렬 규칙, 타이틀 행 우측 `링크 없음` |
-| Guestbook | `GuestbookSection.tsx` + `guestbook/GuestbookPanel.tsx` | mock 로그 + 로컬 추가 입력 |
+| (CTA만) | `app/page.tsx` 내부 | `/guestbook` 이동 버튼만 표시 |
 
 ## Skills 보조 (`components/skills/`)
 
@@ -63,7 +63,6 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 | 스킬 | `skills` (`skills-heading`) |
 | 프로젝트 | `projects` (`projects-heading`) |
 | 자격 | `certs` (`certs-heading`) |
-| 방명록 | `guestbook` (`guestbook-heading`) |
 | 푸터 | `footer` |
 
 ## `data/` 모듈
@@ -93,6 +92,8 @@ Next.js **App Router**, 루트 구조 `app/` · `components/` · `data/` · `pub
 ```
 app/
   page.tsx
+  guestbook/
+    page.tsx
   layout.tsx
   globals.css
 components/
@@ -139,6 +140,6 @@ docs/
 
 ## `AGENTS.md`와의 관계
 
-문서상 기본 순서는 Hero → About → Skills → Projects까지 강조되어 있으나, 실제 페이지는 **Certs · Guestbook · Footer**까지 동일 순서로 이어집니다.
+문서상 기본 순서는 Hero → About → Skills → Projects까지 강조되어 있으나, 실제 `app/page.tsx`는 **Certs → Guestbook CTA → Footer**까지 동일 순서로 이어집니다. 방명록 전체 목록/폼은 `app/guestbook/page.tsx`에서 확인합니다.
 
 작업 이력·구현 단계는 [implementation.md](./implementation.md)를 참고하세요.

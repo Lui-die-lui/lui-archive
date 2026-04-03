@@ -13,7 +13,7 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
   3. `SkillsSection`
   4. `ProjectsSection`
   5. `CertsSection`
-  6. `GuestbookSection`
+  6. Guestbook CTA (`/guestbook` 진입 버튼)
   7. `Footer` (`components/layout/Footer.tsx`)
 - **데이터 분리**: 목·mock 데이터는 `data/`에 두고, UI는 `components/sections/`에 둠.
 - **접근성**: 각 `<section>`에 `aria-labelledby`, 제목 요소에 대응 `id` 부여.
@@ -39,7 +39,7 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 ### Hero (`HeroSection.tsx`)
 
 - 로고 문구: **Lui Arc.**
-- 내비: intro / skills / works / certs / 방명록 → `#about`, `#skills`, `#projects`, `#certs`, `#guestbook`
+- 내비: intro / skills / works / certs / 방명록 → `/#about`, `/#skills`, `/#projects`, `/#certs`, `/guestbook`
 - 우측 텍스트 링크: GitHub, Velog(현재 `href="#"` 플레이스홀더)
 - 메인 타이틀: **Lui Archive**, 짧은 설명 문단, Contact 플레이스홀더 버튼
 - 배경: `ArchiveBlurAccents`로 연한 블루 블러 오브
@@ -80,7 +80,7 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 
 ### Guestbook · Footer
 
-- **Guestbook**: `GuestbookPanel`에서 시간순 로그, admin 좌·guest 우, 파스텔 팔레트 선택, 제출은 클라이언트 상태만 갱신(mock).
+- **Guestbook**: `app/guestbook/page.ts`에서 `GuestbookPanel`(기록 리스트 + 입력 폼) 렌더. admin 좌·guest 우, 파스텔 팔레트 선택, 제출은 클라이언트 상태만 갱신(mock).
 - **Footer**: `data/contact.ts` 기반 이메일·SNS만 표시. 히어로 Contact는 `#footer`.
 
 ---

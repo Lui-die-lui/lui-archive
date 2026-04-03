@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-04-03 — Guestbook 전용 라우트 분리 + 중앙 레이아웃 정돈
+
+- **코드**: `app/page.tsx`에서 `GuestbookSection` 제거 후 `/guestbook` 진입 버튼만 노출. `SiteHeader` 방명록 링크를 `#guestbook` → `/guestbook`로 변경.
+- **코드**: `app/guestbook/page.tsx` 신설로 방명록 전체(목록 + 작성 폼)를 전용 페이지에서 렌더.
+- **코드**: `GuestbookSection` 및 `GuestbookPanel` 레이아웃을 중앙 정렬·카드형 구성으로 조정(리스트 스크롤 영역 + 입력 폼을 시각적으로 분리).
+- **문서**: `docs/page-structure.md`, `docs/overview.md`, `docs/implementation.md`, `docs/ui-sections.md`, `docs/guestbook.md` 갱신.
+
 ## 2026-04-03 — Projects와 Certs 사이 구분선 제거
 
 - **코드**: `ProjectsSection`의 하단 `border-b`를 제거해서 `Projects`와 `Certs` 사이 구분선을 없앰.

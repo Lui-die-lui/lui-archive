@@ -1,3 +1,4 @@
+import Link from "next/link";
 import MobileNavMenu from "@/components/layout/MobileNavMenu";
 import { ctaPillGlassButton } from "@/components/ui/ctaPill";
 import { siteNavItems } from "@/data/siteNav";
@@ -10,12 +11,12 @@ export default function SiteHeader() {
       role="banner"
     >
       <div className="site-container flex h-12 items-center justify-between gap-3 md:h-[3.25rem] md:gap-6">
-        <a
-          href="#hero"
+        <Link
+          href="/#hero"
           className="shrink-0 text-sm font-medium tracking-tight text-zinc-800 transition-colors hover:text-zinc-950 md:text-[0.8125rem]"
         >
           Lui Arc.
-        </a>
+        </Link>
 
         <nav
           aria-label="페이지 섹션"
@@ -24,21 +25,21 @@ export default function SiteHeader() {
           <ul className="flex justify-center gap-4 whitespace-nowrap text-[0.8125rem] text-zinc-600 md:text-[0.75rem] lg:gap-5">
             {siteNavItems.map((item) => (
               <li key={item.href} className="shrink-0">
-                <a
+                <Link
                   href={item.href}
                   className="transition-colors hover:text-zinc-900"
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <a href="#guestbook" className={ctaPillGlassButton}>
+          <Link href="/guestbook" className={ctaPillGlassButton}>
             방명록
-          </a>
+          </Link>
           <MobileNavMenu />
         </div>
       </div>

@@ -14,7 +14,7 @@
 | 3 | Skills | `skills` | SKILLS 라벨·부제·기술 스택. 모바일 1장 캐러셀, 태블릿↑ 2열 그리드 |
 | 4 | Projects | `projects` | 프로젝트 카드 3건, mock 데이터·가로 스크롤(모바일) |
 | 5 | Certs | `certs` | 수료·자격 그리드, 아바타+텍스트 카드, `hasPublicLink` 시 타이틀 우측 `링크 없음` |
-| 6 | Guestbook | `guestbook` | 아카이브형 방명록 로그 + 로컬 mock 입력([guestbook.md](./guestbook.md)) |
+| 6 | Guestbook CTA | - | 방명록 전용 페이지(`app/guestbook/page.tsx`) 진입 버튼 |
 | 7 | Footer | `footer` | 연락처 전용(이메일·SNS 링크, `data/contact.ts`) |
 
 ## 시각·톤(공통)
