@@ -8,13 +8,17 @@ import { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 type Props = {
   categories: SkillCategory[];
+  adminEditable?: boolean;
 };
 
 const SWIPE_PX = 48;
 const SLIDE_GAP_PX = 12;
 const MAX_SLIDE_PX = 304; /* ~19rem */
 
-export default function SkillsMobileCarousel({ categories }: Props) {
+export default function SkillsMobileCarousel({
+  categories,
+  adminEditable = false,
+}: Props) {
   const n = categories.length;
   const [active, setActive] = useState(0);
   const touchStartX = useRef<number | null>(null);
@@ -176,7 +180,11 @@ export default function SkillsMobileCarousel({ categories }: Props) {
                         : "shadow-none",
                     )}
                   >
-                    <SkillCategoryCard category={cat} variant="carousel" />
+                    <SkillCategoryCard
+                      category={cat}
+                      variant="carousel"
+                      adminEditable={adminEditable}
+                    />
                   </div>
                 </div>
               ))}

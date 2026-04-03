@@ -1,10 +1,9 @@
 import type { Cert } from "@/data/certs";
+import { issuerAvatarLetter } from "@/lib/cert-issuer-avatar";
 
-const avatarVariantClass: Record<Cert["avatarVariant"], string> = {
-  han: "bg-white text-zinc-800 shadow-[inset_0_1px_0_rgba(255,255,255,1)] ring-1 ring-zinc-200/90",
-  google: "bg-sky-100 text-blue-800",
-  anthropic: "bg-[#5B9BD5] text-zinc-900",
-};
+/** 발행원 첫 글자용 — 통일된 글라스 톤 */
+const avatarShell =
+  "bg-white text-zinc-800 shadow-[inset_0_1px_0_rgba(255,255,255,1)] ring-1 ring-zinc-200/90";
 
 /**
  * 카드: `items-stretch`로 그리드 행 높이에 맞춘 뒤,
@@ -16,25 +15,27 @@ const cardShell =
 
 type Props = {
   cert: Cert;
+  /** 수료·자격 일괄 편집 모드 등 편집 맥락에서 「링크 없음」 칩 숨김 */
+  hideLinkChip?: boolean;
 };
 
-export default function CertCard({ cert }: Props) {
+export default function CertCard({ cert, hideLinkChip = false }: Props) {
+  const letter = issuerAvatarLetter(cert.issuer);
   const avatar = (
     <div
-      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-semibold md:h-11 md:w-11 md:text-[0.8125rem] ${avatarVariantClass[cert.avatarVariant]}`}
+      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-semibold md:h-11 md:w-11 md:text-[0.8125rem] ${avatarShell}`}
       aria-hidden
     >
-      <span
-        className={
-          cert.avatarVariant === "han"
-            ? "text-[1.05rem] font-semibold leading-none md:text-[0.9375rem]"
-            : "leading-none"
-        }
-      >
-        {cert.avatarText}
+      <span className="text-[1.05rem] font-semibold leading-none md:text-[0.9375rem]">
+        {letter}
       </span>
     </div>
   );
+
+  const noPublicUrl = !cert.url?.trim();
+  /** 편집 모드에서 칩을 없애면 슬롯이 사라져 카드 높이·제목 줄이 덜컥거립니다. 자리는 유지하고 `invisible` 처리합니다. */
+  const linkBadgeClass =
+    "shrink-0 -translate-y-0.5 rounded-md border border-zinc-200/80 bg-white/60 px-2 py-0.5 text-[0.6875rem] font-medium text-zinc-400 md:text-[0.625rem]";
 
   const body = (
     <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center">
@@ -42,10 +43,15 @@ export default function CertCard({ cert }: Props) {
         <h3 className="min-w-0 flex-1 text-base font-semibold leading-tight tracking-tight text-zinc-900 md:text-sm">
           {cert.title}
         </h3>
-        {!cert.hasPublicLink ? (
+        {noPublicUrl ? (
           <span
-            className="shrink-0 rounded-md border border-zinc-200/80 bg-white/60 px-2 py-0.5 text-[0.6875rem] font-medium text-zinc-400 md:text-[0.625rem]"
-            title="공개 확인 링크 없음"
+            className={`${linkBadgeClass} ${
+              hideLinkChip
+                ? "invisible pointer-events-none select-none"
+                : ""
+            }`}
+            title={hideLinkChip ? undefined : "확인 링크 없음"}
+            aria-hidden={hideLinkChip}
           >
             링크 없음
           </span>
