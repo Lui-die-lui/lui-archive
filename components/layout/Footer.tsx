@@ -16,7 +16,7 @@ export default function Footer() {
         </h2>
 
         <div className="flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
-          <p className="text-sm text-zinc-600">
+          <p className="text-center text-sm text-zinc-600 md:text-left">
             <span className="font-medium text-zinc-700">Lui Archive</span>
             <span className="text-zinc-400"> · 2026</span>
           </p>

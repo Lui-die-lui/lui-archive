@@ -5,7 +5,11 @@ import HeroSection from "@/components/sections/HeroSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import SkillsSection from "@/components/sections/SkillsSection";
 
-export default function Home() {
+const INTRO_MIN_LOADING_MS = 800;
+
+export default async function Home() {
+  await new Promise((resolve) => setTimeout(resolve, INTRO_MIN_LOADING_MS));
+
   return (
     <main>
       <HeroSection />
