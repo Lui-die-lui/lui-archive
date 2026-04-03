@@ -24,4 +24,8 @@ export const ctaPillGlassIconButton = `flex h-11 w-11 shrink-0 items-center just
 export const ctaPillGlassIconButtonSm = `flex h-9 w-9 shrink-0 items-center justify-center rounded-full focus:outline-none ${ctaPillGlass} disabled:pointer-events-none disabled:opacity-35`;
 
 export const ctaPillSocialBase =
-  `${ctaPillSize} lowercase tracking-wide text-white antialiased bg-zinc-950 shadow-sm transition-[background-color,box-shadow] duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400`;
+  `${ctaPillSize} tracking-wide text-white antialiased bg-zinc-950 shadow-sm transition-[background-color,box-shadow] duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400`;
+
+/** 히어로 Contact와 동일 캡슐 크기의 소셜 버튼(모바일 등) */
+export const ctaPillSocialLg =
+  `${ctaPillSizeLg} tracking-wide text-white antialiased bg-zinc-950 shadow-sm transition-[background-color,box-shadow] duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400`;

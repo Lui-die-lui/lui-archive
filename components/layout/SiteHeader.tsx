@@ -1,13 +1,8 @@
+import MobileNavMenu from "@/components/layout/MobileNavMenu";
 import { ctaPillGlassButton } from "@/components/ui/ctaPill";
+import { siteNavItems } from "@/data/siteNav";
 
-const navItems = [
-  { href: "#about", label: "intro" },
-  { href: "#skills", label: "skills" },
-  { href: "#projects", label: "works" },
-  { href: "#certs", label: "certs" },
-] as const;
-
-/** 와이어: 좌 로고 · 중앙 4링크 · 우 방명록. 얇고 투명한 고정 바 */
+/** 와이어: 좌 로고 · 중앙 4링크(md+) · 우 방명록 + 모바일 메뉴 */
 export default function SiteHeader() {
   return (
     <header
@@ -27,7 +22,7 @@ export default function SiteHeader() {
           className="absolute left-1/2 hidden -translate-x-1/2 md:block"
         >
           <ul className="flex justify-center gap-4 whitespace-nowrap text-[0.8125rem] text-zinc-600 lg:gap-5">
-            {navItems.map((item) => (
+            {siteNavItems.map((item) => (
               <li key={item.href} className="shrink-0">
                 <a
                   href={item.href}
@@ -40,30 +35,13 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        <a href="#guestbook" className={ctaPillGlassButton}>
-          방명록
-        </a>
-      </div>
-
-      <nav
-        aria-label="페이지 섹션 모바일"
-        className="border-t border-white/15 bg-white/[0.04] py-2 md:hidden"
-      >
-        <div className="site-container">
-          <ul className="flex justify-center gap-x-4 gap-y-1 overflow-x-auto whitespace-nowrap text-[0.6875rem] text-zinc-600">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="transition-colors hover:text-zinc-900"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div className="flex shrink-0 items-center gap-2">
+          <a href="#guestbook" className={ctaPillGlassButton}>
+            방명록
+          </a>
+          <MobileNavMenu />
         </div>
-      </nav>
+      </div>
     </header>
   );
 }

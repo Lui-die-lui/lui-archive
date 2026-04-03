@@ -2,42 +2,53 @@ import ArchiveBlurAccents from "@/components/ui/ArchiveBlurAccents";
 import {
   ctaPillGlassContactButton,
   ctaPillSocialBase,
+  ctaPillSocialLg,
 } from "@/components/ui/ctaPill";
 import { contact } from "@/data/contact";
+
+function HeroSocialLinks({
+  className,
+  size = "sm",
+}: {
+  className?: string;
+  size?: "sm" | "lg";
+}) {
+  const skin = size === "lg" ? ctaPillSocialLg : ctaPillSocialBase;
+  return (
+    <div className={className} aria-label="소셜 링크">
+      <a
+        href={contact.github.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${skin} hover:bg-[#238636] hover:shadow-md`}
+      >
+        GitHub
+      </a>
+      <a
+        href={contact.velog.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${skin} hover:bg-[#20C997] hover:shadow-md`}
+      >
+        Velog
+      </a>
+    </div>
+  );
+}
 
 export default function HeroSection() {
   return (
     <section
       id="hero"
       aria-labelledby="hero-heading"
-      className="relative box-border flex min-h-dvh flex-col overflow-hidden border-b border-zinc-200/60 bg-[#fafbfd] pt-[calc(3rem+2.25rem)] md:pt-[3.25rem]"
+      className="relative box-border flex min-h-dvh flex-col overflow-hidden border-b border-zinc-200/60 bg-[#fafbfd] pt-12 md:pt-[3.25rem]"
     >
       <ArchiveBlurAccents />
 
       <div className="relative z-10 flex min-h-0 flex-1 flex-col">
         <div className="site-container flex min-h-0 flex-1 flex-col">
-          {/* 내비 아래·히어로 상단 우측: 와이어와 동일한 캡슐 버튼 */}
-          <div
-            className="mt-[10px] flex shrink-0 items-center justify-end gap-2 pt-1 pb-3 md:pt-0 md:pb-4"
-            aria-label="소셜 링크"
-          >
-            <a
-              href={contact.github.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${ctaPillSocialBase} hover:bg-[#238636] hover:shadow-md`}
-            >
-              github
-            </a>
-            <a
-              href={contact.velog.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${ctaPillSocialBase} hover:bg-[#20C997] hover:shadow-md`}
-            >
-              velog
-            </a>
-          </div>
+          {/* 데스크톱: 히어로 상단 우측 */}
+          <HeroSocialLinks className="mt-[10px] hidden shrink-0 items-center justify-end gap-2 pt-1 pb-3 md:flex md:pt-0 md:pb-4" />
 
           <div className="flex min-h-0 flex-1 flex-col justify-center py-6 md:py-8 lg:py-10">
             <div className="min-w-0 max-w-2xl text-left">
@@ -59,13 +70,14 @@ export default function HeroSection() {
               </p>
 
 
-              <div className="mt-8 md:mt-10">
-                <a
-                  href="#footer"
-                  className={`${ctaPillGlassContactButton}`}
-                >
+              <div className="mt-8 flex flex-row flex-wrap items-center gap-3 md:mt-10">
+                <a href="#footer" className={ctaPillGlassContactButton}>
                   Contact
                 </a>
+                <HeroSocialLinks
+                  size="lg"
+                  className="flex flex-wrap gap-2 md:hidden"
+                />
               </div>
             </div>
           </div>
