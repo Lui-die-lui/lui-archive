@@ -17,9 +17,15 @@ type Props = {
   cert: Cert;
   /** 수료·자격 일괄 편집 모드 등 편집 맥락에서 「링크 없음」 칩 숨김 */
   hideLinkChip?: boolean;
+  /** DB 저장 전 로컬 초안 */
+  showDraftChip?: boolean;
 };
 
-export default function CertCard({ cert, hideLinkChip = false }: Props) {
+export default function CertCard({
+  cert,
+  hideLinkChip = false,
+  showDraftChip = false,
+}: Props) {
   const letter = issuerAvatarLetter(cert.issuer);
   const avatar = (
     <div
@@ -40,8 +46,13 @@ export default function CertCard({ cert, hideLinkChip = false }: Props) {
   const body = (
     <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center">
       <div className="flex items-center justify-between gap-3">
-        <h3 className="min-w-0 flex-1 text-base font-semibold leading-tight tracking-tight text-zinc-900 md:text-sm">
-          {cert.title}
+        <h3 className="flex min-w-0 flex-1 items-center gap-2 text-base font-semibold leading-tight tracking-tight text-zinc-900 md:text-sm">
+          {showDraftChip ? (
+            <span className="shrink-0 rounded-full border border-amber-200/80 bg-amber-50/90 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-amber-900">
+              초안
+            </span>
+          ) : null}
+          <span className="min-w-0">{cert.title}</span>
         </h3>
         {noPublicUrl ? (
           <span

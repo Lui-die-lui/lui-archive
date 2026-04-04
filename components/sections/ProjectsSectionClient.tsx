@@ -24,7 +24,7 @@ import {
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 function projectDisplayEquals(a: Project, b: Project): boolean {
   const chips = (c: string[]) => [...c].sort().join("\0");
@@ -74,10 +74,11 @@ export default function ProjectsSectionClient({
     () => new Set(persistedPublicIds),
     [persistedPublicIds],
   );
-  const [creating, setCreating] = useState(false);
   const [autoEditPublicId, setAutoEditPublicId] = useState<string | null>(null);
-  const [ephemeralNewIds, setEphemeralNewIds] = useState<string[]>([]);
+  const [localDraftProjects, setLocalDraftProjects] = useState<Project[]>([]);
   const [hiddenProjectIds, setHiddenProjectIds] = useState<string[]>([]);
+  const editingProjectIdsRef = useRef(new Set<string>());
+  const [blockNewGhost, setBlockNewGhost] = useState(false);
   const [optimisticById, setOptimisticById] = useState<
     Record<string, Project>
   >({});
@@ -144,41 +145,42 @@ export default function ProjectsSectionClient({
     setAutoEditPublicId(null);
   }, []);
 
-  const removeEphemeral = useCallback((publicId: string) => {
-    setEphemeralNewIds((prev) => prev.filter((id) => id !== publicId));
+  const removeLocalDraft = useCallback((publicId: string) => {
+    setLocalDraftProjects((prev) => prev.filter((p) => p.id !== publicId));
   }, []);
 
-  const handleCreateProject = useCallback(async () => {
-    setCreating(true);
-    try {
-      const res = await fetch("/api/admin/projects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: "{}",
-      });
-      const data = (await res.json().catch(() => ({}))) as {
-        error?: string;
-        publicId?: string;
-      };
-      if (!res.ok || !data.publicId) {
-        window.alert(data.error ?? "프로젝트를 만들지 못했습니다.");
-        return;
-      }
-      setEphemeralNewIds((prev) =>
-        prev.includes(data.publicId!) ? prev : [...prev, data.publicId!],
-      );
-      setAutoEditPublicId(data.publicId);
-      router.refresh();
-    } catch {
-      window.alert("네트워크 오류가 발생했습니다.");
-    } finally {
-      setCreating(false);
-    }
-  }, [router]);
+  const reportProjectEditing = useCallback((id: string, active: boolean) => {
+    const s = editingProjectIdsRef.current;
+    if (active) s.add(id);
+    else s.delete(id);
+    setBlockNewGhost(s.size > 0);
+  }, []);
+
+  const handleCreateProject = useCallback(() => {
+    if (blockNewGhost) return;
+    const id = `draft-${crypto.randomUUID().replace(/-/g, "")}`;
+    const draft: Project = {
+      id,
+      title: "새 프로젝트",
+      summary: "요약을 입력하세요.",
+      statusChips: [],
+      image: null,
+      techTags: [],
+      readmeUrl: "https://github.com/",
+      liveUrl: undefined,
+    };
+    setLocalDraftProjects((prev) => [...prev, draft]);
+    setAutoEditPublicId(id);
+  }, [blockNewGhost]);
+
+  const mergedProjects = useMemo(() => {
+    const fromServer = projects.map((p) => optimisticById[p.id] ?? p);
+    return [...fromServer, ...localDraftProjects];
+  }, [projects, optimisticById, localDraftProjects]);
 
   const visibleProjects = useMemo(
-    () => projects.filter((p) => !hiddenProjectIds.includes(p.id)),
-    [projects, hiddenProjectIds],
+    () => mergedProjects.filter((p) => !hiddenProjectIds.includes(p.id)),
+    [mergedProjects, hiddenProjectIds],
   );
 
   const defaultVisibleOrder = useMemo(
@@ -207,10 +209,12 @@ export default function ProjectsSectionClient({
 
   const persistReorder = useCallback(
     async (newVisibleOrder: string[]) => {
+      /** 로컬 초안 id는 DB reorder에 넣지 않음 — 서버 프로젝트만 순서 전송 */
+      const visiblePersisted = newVisibleOrder.filter((id) => persisted.has(id));
       const hiddenTail = projects
         .filter((p) => hiddenProjectIds.includes(p.id))
         .map((p) => p.id);
-      const fullOrder = [...newVisibleOrder, ...hiddenTail];
+      const fullOrder = [...visiblePersisted, ...hiddenTail];
 
       if (fullOrder.length !== projects.length) {
         setLocalVisibleOrder(null);
@@ -242,7 +246,7 @@ export default function ProjectsSectionClient({
         window.alert("네트워크 오류가 발생했습니다.");
       }
     },
-    [projects, hiddenProjectIds, router],
+    [projects, hiddenProjectIds, persisted, router],
   );
 
   const handleDragEnd = useCallback(
@@ -290,12 +294,13 @@ export default function ProjectsSectionClient({
           canMutate={persisted.has(project.id)}
           autoEditOnce={autoEditPublicId === project.id}
           onAutoEditConsumed={consumeAutoEdit}
-          ephemeralNew={ephemeralNewIds.includes(project.id)}
-          onEphemeralPersisted={() => removeEphemeral(project.id)}
-          onEphemeralAbandoned={() => removeEphemeral(project.id)}
+          localDraft={localDraftProjects.some((d) => d.id === project.id)}
+          onEphemeralPersisted={() => removeLocalDraft(project.id)}
+          onEphemeralAbandoned={() => removeLocalDraft(project.id)}
           onEphemeralHideOptimistic={() => hideProjectOptimistic(project.id)}
           onEphemeralShowAgain={() => unhideProject(project.id)}
           onProjectSavedLocally={applySavedProject}
+          onReportEditing={(active) => reportProjectEditing(project.id, active)}
         />
       </Reveal>
     );
@@ -328,8 +333,8 @@ export default function ProjectsSectionClient({
             className="h-full w-full min-w-0"
           >
             <AdminNewProjectGhostMobile
-              disabled={creating}
-              onClick={() => void handleCreateProject()}
+              disabled={blockNewGhost}
+              onClick={handleCreateProject}
             />
           </Reveal>
         </li>
@@ -340,8 +345,8 @@ export default function ProjectsSectionClient({
             className="h-full w-full min-w-0"
           >
             <AdminNewProjectGhostDesktop
-              disabled={creating}
-              onClick={() => void handleCreateProject()}
+              disabled={blockNewGhost}
+              onClick={handleCreateProject}
             />
           </Reveal>
         </li>

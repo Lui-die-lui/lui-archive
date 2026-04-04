@@ -1,6 +1,7 @@
 "use client";
 
 import type { Cert } from "@/data/certs";
+import CertCardCreateSkeleton from "@/components/certs/CertCardCreateSkeleton";
 import {
   formatIssuedAtLabel,
   ISSUED_MONTH_SHORT,
@@ -27,6 +28,8 @@ type Props = {
   cert: Cert;
   variant: "inline" | "modal";
   busy: boolean;
+  /** 신규(POST) 저장 중일 때 자격증 카드 크기의 스켈레톤 */
+  useCreatePostSkeleton?: boolean;
   onCancel: () => void;
   onSave: (payload: CertEditPayload) => void | Promise<void>;
 };
@@ -35,6 +38,7 @@ export default function CertEditForm({
   cert,
   variant,
   busy,
+  useCreatePostSkeleton = false,
   onCancel,
   onSave,
 }: Props) {
@@ -68,6 +72,18 @@ export default function CertEditForm({
       issuedAtLabel,
       url: u || null,
     });
+  }
+
+  if (busy && useCreatePostSkeleton) {
+    const skeletonWrap =
+      variant === "inline"
+        ? shell
+        : "w-full min-w-0 min-h-[7.5rem] py-2";
+    return (
+      <div className={skeletonWrap}>
+        <CertCardCreateSkeleton />
+      </div>
+    );
   }
 
   return (

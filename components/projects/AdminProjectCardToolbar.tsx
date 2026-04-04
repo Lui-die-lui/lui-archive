@@ -35,12 +35,15 @@ type Props = {
   setKindTags: (v: ProjectKindTagValue[]) => void;
   techTagsEdit: string[];
   setTechTagsEdit: (v: string[]) => void;
-  ephemeralNew?: boolean;
+  /** 아직 DB에 없는 초안 카드 — 저장 시 POST, 취소 시 클라이언트에서만 제거 */
+  localDraft?: boolean;
   onEphemeralPersisted?: () => void;
   onEphemeralAbandoned?: () => void;
   onEphemeralHideOptimistic?: () => void;
   onEphemeralShowAgain?: () => void;
   onProjectSavedLocally?: (next: Project) => void;
+  /** 로컬 초안을 POST로 저장하는 동안 true — 카드 스켈레톤 표시용 */
+  onLocalDraftPostingChange?: (posting: boolean) => void;
 };
 
 export default function AdminProjectCardToolbar({
@@ -58,12 +61,13 @@ export default function AdminProjectCardToolbar({
   setKindTags,
   techTagsEdit,
   setTechTagsEdit,
-  ephemeralNew = false,
+  localDraft = false,
   onEphemeralPersisted,
   onEphemeralAbandoned,
   onEphemeralHideOptimistic,
   onEphemeralShowAgain,
   onProjectSavedLocally,
+  onLocalDraftPostingChange,
 }: Props) {
   const router = useRouter();
   const [title, setTitle] = useState(project.title);
@@ -88,27 +92,10 @@ export default function AdminProjectCardToolbar({
   }, [project, setKindTags, setTechTagsEdit]);
 
   const cancel = useCallback(async () => {
-    if (ephemeralNew) {
-      onEphemeralHideOptimistic?.();
+    if (localDraft) {
       setError(null);
-      try {
-        const res = await fetch(
-          `/api/admin/projects/${encodeURIComponent(project.id)}`,
-          { method: "DELETE" },
-        );
-        const data = (await res.json().catch(() => ({}))) as { error?: string };
-        if (!res.ok) {
-          onEphemeralShowAgain?.();
-          window.alert(data.error ?? "취소(삭제)에 실패했습니다.");
-          return;
-        }
-        onEphemeralAbandoned?.();
-        onEditingChange(false);
-        router.refresh();
-      } catch {
-        onEphemeralShowAgain?.();
-        window.alert("네트워크 오류가 발생했습니다.");
-      }
+      onEphemeralAbandoned?.();
+      onEditingChange(false);
       return;
     }
 
@@ -123,11 +110,9 @@ export default function AdminProjectCardToolbar({
     resetDraftsFromProject();
     setTechDraft("");
   }, [
-    ephemeralNew,
+    localDraft,
     onEditingChange,
     onEphemeralAbandoned,
-    onEphemeralHideOptimistic,
-    onEphemeralShowAgain,
     onThumbErrorClear,
     project,
     resetDraftsFromProject,
@@ -139,6 +124,35 @@ export default function AdminProjectCardToolbar({
     setBusy(true);
     setError(null);
     try {
+      if (localDraft) {
+        onLocalDraftPostingChange?.(true);
+        const res = await fetch("/api/admin/projects", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: title.trim(),
+            summary: summary.trim(),
+            readmeUrl: readmeUrl.trim(),
+            deployUrl: deployUrl.trim() || undefined,
+            thumbnailUrl: thumbnailUrl.trim() || undefined,
+            kindTags,
+            techTags: techTagsEdit,
+          }),
+        });
+        const data = (await res.json().catch(() => ({}))) as {
+          error?: string;
+          publicId?: string;
+        };
+        if (!res.ok || !data.publicId) {
+          setError(data.error ?? "저장에 실패했습니다.");
+          return;
+        }
+        await router.refresh();
+        onEphemeralPersisted?.();
+        onEditingChange(false);
+        return;
+      }
+
       const res = await fetch(
         `/api/admin/projects/${encodeURIComponent(project.id)}`,
         {
@@ -178,34 +192,19 @@ export default function AdminProjectCardToolbar({
       setError("네트워크 오류가 발생했습니다.");
     } finally {
       setBusy(false);
+      if (localDraft) onLocalDraftPostingChange?.(false);
     }
   };
 
   const remove = async () => {
-    if (!canMutate) return;
-    if (!window.confirm(`「${project.title}」프로젝트를 삭제할까요?`)) return;
-    if (ephemeralNew) {
-      onEphemeralHideOptimistic?.();
+    if (localDraft) {
+      if (!window.confirm(`「${project.title}」초안을 삭제할까요?`)) return;
       setError(null);
-      try {
-        const res = await fetch(
-          `/api/admin/projects/${encodeURIComponent(project.id)}`,
-          { method: "DELETE" },
-        );
-        const data = (await res.json().catch(() => ({}))) as { error?: string };
-        if (!res.ok) {
-          onEphemeralShowAgain?.();
-          window.alert(data.error ?? "삭제에 실패했습니다.");
-          return;
-        }
-        onEphemeralAbandoned?.();
-        router.refresh();
-      } catch {
-        onEphemeralShowAgain?.();
-        window.alert("네트워크 오류가 발생했습니다.");
-      }
+      onEphemeralAbandoned?.();
       return;
     }
+    if (!canMutate) return;
+    if (!window.confirm(`「${project.title}」프로젝트를 삭제할까요?`)) return;
 
     setBusy(true);
     setError(null);
@@ -246,7 +245,7 @@ export default function AdminProjectCardToolbar({
     setTechDraft("");
   }
 
-  if (!canMutate) return null;
+  if (!canMutate && !localDraft) return null;
 
   return (
     <>
@@ -260,8 +259,13 @@ export default function AdminProjectCardToolbar({
             aria-label="프로젝트 제목"
           />
         ) : (
-          <h3 className="flex min-h-10 min-w-0 max-w-full flex-1 basis-0 items-center break-words text-[0.9375rem] font-semibold uppercase tracking-[0.06em] text-zinc-900 md:text-base">
-            {project.title}
+          <h3 className="flex min-h-10 min-w-0 max-w-full flex-1 basis-0 items-center gap-2 break-words text-[0.9375rem] font-semibold uppercase tracking-[0.06em] text-zinc-900 md:text-base">
+            {localDraft ? (
+              <span className="shrink-0 rounded-full border border-amber-200/80 bg-amber-50/90 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-amber-900">
+                초안
+              </span>
+            ) : null}
+            <span className="min-w-0">{project.title}</span>
           </h3>
         )}
         {/*

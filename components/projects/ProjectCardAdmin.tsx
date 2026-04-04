@@ -14,6 +14,7 @@ import {
   type ProjectKindTagValue,
 } from "@/lib/project-kind-tags";
 import { uploadProjectThumbnail } from "@/lib/firebase/uploadProjectThumbnail";
+import ProjectCardCreateSkeleton from "@/components/projects/ProjectCardCreateSkeleton";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -23,12 +24,14 @@ type Props = {
   canMutate: boolean;
   autoEditOnce?: boolean;
   onAutoEditConsumed?: () => void;
-  ephemeralNew?: boolean;
+  localDraft?: boolean;
   onEphemeralPersisted?: () => void;
   onEphemeralAbandoned?: () => void;
   onEphemeralHideOptimistic?: () => void;
   onEphemeralShowAgain?: () => void;
   onProjectSavedLocally?: (next: Project) => void;
+  /** 편집 모드 여부를 상위에 알려 새 카드 추가 버튼을 막을 때 사용 */
+  onReportEditing?: (active: boolean) => void;
   summary: ReactNode;
   techList: ReactNode;
   footer: ReactNode;
@@ -39,12 +42,13 @@ export default function ProjectCardAdmin({
   canMutate,
   autoEditOnce = false,
   onAutoEditConsumed,
-  ephemeralNew = false,
+  localDraft = false,
   onEphemeralPersisted,
   onEphemeralAbandoned,
   onEphemeralHideOptimistic,
   onEphemeralShowAgain,
   onProjectSavedLocally,
+  onReportEditing,
   summary,
   techList,
   footer,
@@ -59,6 +63,7 @@ export default function ProjectCardAdmin({
   const [techTagsEdit, setTechTagsEdit] = useState<string[]>(() => [
     ...project.techTags,
   ]);
+  const [createPosting, setCreatePosting] = useState(false);
   const thumbFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -78,6 +83,14 @@ export default function ProjectCardAdmin({
     setEditing(true);
     onAutoEditConsumed?.();
   }, [autoEditOnce, onAutoEditConsumed]);
+
+  useEffect(() => {
+    onReportEditing?.(editing);
+    return () => {
+      /** 취소로 초안 카드가 먼저 언마운트되면 `editing: false` 렌더 없이 끝나므로 반드시 잠금 해제 */
+      onReportEditing?.(false);
+    };
+  }, [editing, onReportEditing]);
 
   const onThumbnailFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -105,6 +118,10 @@ export default function ProjectCardAdmin({
         statusChips: kindValuesToStatusChipLabels(kindTags),
       }
     : project;
+
+  if (localDraft && createPosting) {
+    return <ProjectCardCreateSkeleton />;
+  }
 
   return (
     <>
@@ -187,12 +204,13 @@ export default function ProjectCardAdmin({
           setKindTags={setKindTags}
           techTagsEdit={techTagsEdit}
           setTechTagsEdit={setTechTagsEdit}
-          ephemeralNew={ephemeralNew}
+          localDraft={localDraft}
           onEphemeralPersisted={onEphemeralPersisted}
           onEphemeralAbandoned={onEphemeralAbandoned}
           onEphemeralHideOptimistic={onEphemeralHideOptimistic}
           onEphemeralShowAgain={onEphemeralShowAgain}
           onProjectSavedLocally={onProjectSavedLocally}
+          onLocalDraftPostingChange={setCreatePosting}
         />
         {!editing ? summary : null}
         {!editing ? (

@@ -71,11 +71,9 @@ export default function CertsSectionClient({
   const [batchMode, setBatchMode] = useState(false);
   const [editingCertId, setEditingCertId] = useState<string | null>(null);
   const [formBusy, setFormBusy] = useState(false);
-  const [creating, setCreating] = useState(false);
   const [localOrder, setLocalOrder] = useState<string[] | null>(null);
   const [hiddenCertIds, setHiddenCertIds] = useState<string[]>([]);
-  const [ephemeralNewIds, setEphemeralNewIds] = useState<string[]>([]);
-  const [autoEditCertId, setAutoEditCertId] = useState<string | null>(null);
+  const [localDraftCerts, setLocalDraftCerts] = useState<Cert[]>([]);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -91,18 +89,13 @@ export default function CertsSectionClient({
 
   useEffect(() => {
     setHiddenCertIds((prev) =>
-      prev.filter((id) => certs.some((c) => c.id === id)),
+      prev.filter(
+        (id) =>
+          certs.some((c) => c.id === id) ||
+          localDraftCerts.some((c) => c.id === id),
+      ),
     );
-  }, [certs]);
-
-  useEffect(() => {
-    if (!autoEditCertId) return;
-    if (certs.some((c) => c.id === autoEditCertId)) {
-      setEditingCertId(autoEditCertId);
-      setBatchMode(true);
-      setAutoEditCertId(null);
-    }
-  }, [autoEditCertId, certs]);
+  }, [certs, localDraftCerts]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -121,13 +114,18 @@ export default function CertsSectionClient({
     setHiddenCertIds((prev) => prev.filter((x) => x !== id));
   }, []);
 
-  const removeEphemeral = useCallback((id: string) => {
-    setEphemeralNewIds((prev) => prev.filter((x) => x !== id));
+  const removeLocalDraft = useCallback((id: string) => {
+    setLocalDraftCerts((prev) => prev.filter((c) => c.id !== id));
   }, []);
 
+  const allCerts = useMemo(
+    () => [...certs, ...localDraftCerts],
+    [certs, localDraftCerts],
+  );
+
   const visibleCertsBase = useMemo(
-    () => certs.filter((c) => !hiddenCertIds.includes(c.id)),
-    [certs, hiddenCertIds],
+    () => allCerts.filter((c) => !hiddenCertIds.includes(c.id)),
+    [allCerts, hiddenCertIds],
   );
 
   const defaultOrder = useMemo(
@@ -156,23 +154,18 @@ export default function CertsSectionClient({
   const editingCert = useMemo(
     () =>
       editingCertId
-        ? certs.find((c) => c.id === editingCertId) ?? null
+        ? allCerts.find((c) => c.id === editingCertId) ?? null
         : null,
-    [certs, editingCertId],
+    [allCerts, editingCertId],
   );
 
   const persistReorder = useCallback(
-    async (orderedIds: string[]) => {
-      const p = new Set(persisted);
-      if (orderedIds.length !== p.size || orderedIds.some((id) => !p.has(id))) {
-        setLocalOrder(null);
-        window.alert("순서를 저장할 수 없습니다. 페이지를 새로고침 해 주세요.");
-        return;
-      }
+    async (visibleOrder: string[]) => {
+      const visiblePersisted = visibleOrder.filter((id) => persisted.has(id));
       const hiddenTail = certs
         .filter((c) => hiddenCertIds.includes(c.id))
         .map((c) => c.id);
-      const fullOrder = [...orderedIds, ...hiddenTail];
+      const fullOrder = [...visiblePersisted, ...hiddenTail];
       if (fullOrder.length !== certs.length) {
         setLocalOrder(null);
         window.alert("순서 데이터가 올바르지 않습니다.");
@@ -223,77 +216,44 @@ export default function CertsSectionClient({
     [effectiveOrder, persistReorder, persisted, sortableIdsOrdered],
   );
 
-  const handleCreateCert = useCallback(async () => {
-    setCreating(true);
-    try {
-      const res = await fetch("/api/admin/certs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: "{}",
-      });
-      const data = (await res.json().catch(() => ({}))) as {
-        error?: string;
-        id?: string;
-      };
-      if (!res.ok || !data.id) {
-        window.alert(data.error ?? "자격증을 만들지 못했습니다.");
-        return;
-      }
-      setEphemeralNewIds((prev) =>
-        prev.includes(data.id!) ? prev : [...prev, data.id!],
-      );
-      setAutoEditCertId(data.id);
-      router.refresh();
-    } catch {
-      window.alert("네트워크 오류가 발생했습니다.");
-    } finally {
-      setCreating(false);
-    }
-  }, [router]);
+  const handleCreateCert = useCallback(() => {
+    if (editingCertId !== null || formBusy) return;
+    const id = `draft-${crypto.randomUUID().replace(/-/g, "")}`;
+    const draft: Cert = {
+      id,
+      title: "새 자격증",
+      issuer: "발행처",
+      issuedAt: "Jan 2026",
+      url: null,
+      hasPublicLink: false,
+      avatarText: "한",
+      avatarVariant: "han",
+    };
+    setLocalDraftCerts((prev) => [...prev, draft]);
+    setEditingCertId(id);
+    setBatchMode(true);
+  }, [editingCertId, formBusy]);
 
-  const closeEditor = useCallback(async () => {
+  const closeEditor = useCallback(() => {
     if (!editingCertId) return;
-    if (ephemeralNewIds.includes(editingCertId)) {
-      hideCertOptimistic(editingCertId);
-      try {
-        const res = await fetch(
-          `/api/admin/certs/${encodeURIComponent(editingCertId)}`,
-          { method: "DELETE" },
-        );
-        if (!res.ok) {
-          unhideCert(editingCertId);
-          const data = (await res.json().catch(() => ({}))) as {
-            error?: string;
-          };
-          window.alert(data.error ?? "취소(삭제)에 실패했습니다.");
-          return;
-        }
-        removeEphemeral(editingCertId);
-        router.refresh();
-      } catch {
-        unhideCert(editingCertId);
-        window.alert("네트워크 오류가 발생했습니다.");
-      }
+    if (!persisted.has(editingCertId)) {
+      removeLocalDraft(editingCertId);
     }
     setEditingCertId(null);
-  }, [
-    editingCertId,
-    ephemeralNewIds,
-    hideCertOptimistic,
-    removeEphemeral,
-    router,
-    unhideCert,
-  ]);
+  }, [editingCertId, persisted, removeLocalDraft]);
 
   const saveCert = useCallback(
     async (payload: CertEditPayload) => {
       if (!editingCertId) return;
       setFormBusy(true);
       try {
+        const isNew = !persisted.has(editingCertId);
         const res = await fetch(
-          `/api/admin/certs/${encodeURIComponent(editingCertId)}`,
+          isNew
+            ? "/api/admin/certs"
+            : `/api/admin/certs/${encodeURIComponent(editingCertId)}`,
           {
-            method: "PATCH",
+            method: isNew ? "POST" : "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               title: payload.title,
@@ -308,57 +268,56 @@ export default function CertsSectionClient({
           window.alert(data.error ?? "저장에 실패했습니다.");
           return;
         }
-        removeEphemeral(editingCertId);
+        const savedDraftId = editingCertId;
+        await router.refresh();
+        if (isNew) removeLocalDraft(savedDraftId);
         setEditingCertId(null);
-        router.refresh();
       } catch {
         window.alert("네트워크 오류가 발생했습니다.");
       } finally {
         setFormBusy(false);
       }
     },
-    [editingCertId, removeEphemeral, router],
+    [editingCertId, persisted, removeLocalDraft, router],
   );
 
   const deleteCert = useCallback(
     async (id: string, title: string) => {
       if (!window.confirm(`「${title}」항목을 삭제할까요?`)) return;
-      const ephem = ephemeralNewIds.includes(id);
-      if (ephem) hideCertOptimistic(id);
+      if (!persisted.has(id)) {
+        removeLocalDraft(id);
+        if (editingCertId === id) setEditingCertId(null);
+        return;
+      }
       try {
         const res = await fetch(`/api/admin/certs/${encodeURIComponent(id)}`, {
           method: "DELETE",
         });
         if (!res.ok) {
-          if (ephem) unhideCert(id);
           const data = (await res.json().catch(() => ({}))) as { error?: string };
           window.alert(data.error ?? "삭제에 실패했습니다.");
           return;
         }
-        if (ephem) removeEphemeral(id);
         if (editingCertId === id) setEditingCertId(null);
         router.refresh();
       } catch {
-        if (ephem) unhideCert(id);
         window.alert("네트워크 오류가 발생했습니다.");
       }
     },
-    [
-      editingCertId,
-      ephemeralNewIds,
-      hideCertOptimistic,
-      removeEphemeral,
-      router,
-      unhideCert,
-    ],
+    [editingCertId, persisted, removeLocalDraft, router],
   );
 
   const toggleBatchMode = useCallback(() => {
-    setBatchMode((b) => {
-      if (b) setEditingCertId(null);
-      return !b;
-    });
-  }, []);
+    if (batchMode) {
+      if (editingCertId && !persisted.has(editingCertId)) {
+        removeLocalDraft(editingCertId);
+      }
+      setEditingCertId(null);
+      setBatchMode(false);
+    } else {
+      setBatchMode(true);
+    }
+  }, [batchMode, editingCertId, persisted, removeLocalDraft]);
 
   const ulClass =
     "grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 md:items-stretch lg:grid-cols-3";
@@ -407,11 +366,16 @@ export default function CertsSectionClient({
               cert={cert}
               variant="inline"
               busy={formBusy}
+              useCreatePostSkeleton={!canDb}
               onCancel={() => void closeEditor()}
               onSave={(p) => saveCert(p)}
             />
           ) : showCard ? (
-            <CertCard cert={cert} hideLinkChip={batchMode} />
+            <CertCard
+              cert={cert}
+              hideLinkChip={batchMode}
+              showDraftChip={!canDb}
+            />
           ) : null}
         </Reveal>
       </div>
@@ -448,8 +412,8 @@ export default function CertsSectionClient({
             className="h-full w-full min-w-0"
           >
             <AdminNewCertGhostMobile
-              disabled={creating}
-              onClick={() => void handleCreateCert()}
+              disabled={editingCertId !== null || formBusy}
+              onClick={handleCreateCert}
             />
           </Reveal>
         </li>
@@ -460,8 +424,8 @@ export default function CertsSectionClient({
             className="h-full w-full min-w-0"
           >
             <AdminNewCertGhostDesktop
-              disabled={creating}
-              onClick={() => void handleCreateCert()}
+              disabled={editingCertId !== null || formBusy}
+              onClick={handleCreateCert}
             />
           </Reveal>
         </li>
@@ -527,13 +491,18 @@ export default function CertsSectionClient({
       {editingCert && isMd ? (
         <AdminDismissibleModal
           open
-          title="자격증 수정"
-          onClose={() => void closeEditor()}
+          title={
+            editingCert && !persisted.has(editingCert.id)
+              ? "자격증 추가"
+              : "자격증 수정"
+          }
+          onClose={() => closeEditor()}
         >
           <CertEditForm
             cert={editingCert}
             variant="modal"
             busy={formBusy}
+            useCreatePostSkeleton={!persisted.has(editingCert.id)}
             onCancel={() => void closeEditor()}
             onSave={(p) => saveCert(p)}
           />

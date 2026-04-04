@@ -62,6 +62,14 @@ export const ctaPillSocialGlassHeroRow = `${ctaPillSizeHeroRow} tracking-wide an
 
 export const ctaPillSocialGlassLg = `${ctaPillSizeLg} tracking-wide antialiased ${socialGlassEffects}`;
 
-/** 프로젝트 카드 LIVE — 기본: GitHub 캡슐과 동일 짙은 글라스 톤, 호버: 솔리드·한 톤 더 밝은 슬레이트 */
+/** 프로젝트 카드 링크 공통 — 태그(#D7E4EE·#F4F8FB·#5E7486)와 같은 슬레이트 블루 계열, 호버는 한 톤만 */
+const projectCardCtaBase =
+  "inline-flex items-center justify-center rounded-full px-3.5 py-1.5 text-[11px] font-medium transition-[border-color,background-color,color] duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400/40";
+
+/** README — 밝은 면, 얇은 보더 */
+export const projectCardReadmeLink =
+  `${projectCardCtaBase} border border-[#D6E0EA]/95 bg-white/95 text-[#5c6a78] hover:border-[#CCD8E4] hover:bg-[#FAFCFD] hover:text-[#4a5662]`;
+
+/** LIVE — 살짝만 채운 배경으로만 구분, 채도 높은 색·글라스 대비 호버 없음 */
 export const projectCardLiveLink =
-  "inline-flex items-center justify-center rounded-full border-0 bg-zinc-900/38 px-3.5 py-1.5 text-[11px] font-medium text-zinc-100 shadow-[0_1px_3px_rgba(15,23,42,0.07)] backdrop-blur-lg backdrop-saturate-150 transition-[background-color,box-shadow,color,backdrop-filter] duration-200 ease-out hover:bg-[#3d4658] hover:text-[#FFFFFF] hover:shadow-sm hover:backdrop-blur-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400/50";
+  `${projectCardCtaBase} border border-[#CEDAE5] bg-[#F4F8FB]/98 text-[#546575] hover:border-[#C4D1DE] hover:bg-[#EEF3F8] hover:text-[#4a5866]`;

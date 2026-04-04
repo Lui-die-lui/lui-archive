@@ -1,13 +1,15 @@
-// 포트폴리오 CMS — PostgreSQL (Neon 등) + Prisma
+// 포트폴리오 CMS — PostgreSQL (Supabase 등) + Prisma
 // 관리자 1인 운영 전제, 일반 사용자 계정 테이블 없음
+// Supabase + Vercel: DATABASE_URL=Transaction pooler(6543), DIRECT_URL=직접 연결(5432)
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // ---------------------------------------------------------------------------

@@ -5,7 +5,10 @@ import {
   ProjectCardBadgeList,
   ThumbFallback,
 } from "@/components/projects/project-card-shared";
-import { projectCardLiveLink } from "@/components/ui/ctaPill";
+import {
+  projectCardLiveLink,
+  projectCardReadmeLink,
+} from "@/components/ui/ctaPill";
 import type { Project } from "@/data/projects";
 
 type Props = {
@@ -13,16 +16,17 @@ type Props = {
   adminEditable?: boolean;
   /** DB에 행이 있을 때만 수정·삭제 */
   canMutate?: boolean;
-  /** 방금 POST로 만든 카드에 한 번 자동으로 편집 모드 */
+  /** 새 초안 카드에 한 번 자동으로 편집 모드 */
   autoEditOnce?: boolean;
   onAutoEditConsumed?: () => void;
-  /** 취소 시 DELETE로 되돌릴 스텁 */
-  ephemeralNew?: boolean;
+  /** DB 저장 전 로컬 초안 */
+  localDraft?: boolean;
   onEphemeralPersisted?: () => void;
   onEphemeralAbandoned?: () => void;
   onEphemeralHideOptimistic?: () => void;
   onEphemeralShowAgain?: () => void;
   onProjectSavedLocally?: (next: Project) => void;
+  onReportEditing?: (active: boolean) => void;
 };
 
 export default function ProjectCard({
@@ -31,30 +35,32 @@ export default function ProjectCard({
   canMutate = false,
   autoEditOnce = false,
   onAutoEditConsumed,
-  ephemeralNew = false,
+  localDraft = false,
   onEphemeralPersisted,
   onEphemeralAbandoned,
   onEphemeralHideOptimistic,
   onEphemeralShowAgain,
   onProjectSavedLocally,
+  onReportEditing,
 }: Props) {
   const techVisible = project.techTags.slice(0, MAX_TECH_VISIBLE);
   const techExtra = project.techTags.length - techVisible.length;
 
   return (
     <article className="group flex h-full w-full min-h-0 min-w-0 max-w-full flex-col overflow-hidden rounded-2xl border border-zinc-200/55 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-[box-shadow,border-color] duration-200 hover:border-zinc-200/90 hover:shadow-[0_8px_28px_-8px_rgba(15,23,42,0.08)]">
-      {adminEditable && canMutate ? (
+      {adminEditable && (canMutate || localDraft) ? (
         <ProjectCardAdmin
           project={project}
           canMutate={canMutate}
           autoEditOnce={autoEditOnce}
           onAutoEditConsumed={onAutoEditConsumed}
-          ephemeralNew={ephemeralNew}
+          localDraft={localDraft}
           onEphemeralPersisted={onEphemeralPersisted}
           onEphemeralAbandoned={onEphemeralAbandoned}
           onEphemeralHideOptimistic={onEphemeralHideOptimistic}
           onEphemeralShowAgain={onEphemeralShowAgain}
           onProjectSavedLocally={onProjectSavedLocally}
+          onReportEditing={onReportEditing}
           summary={
             <p className="mt-2 text-[0.8125rem] leading-relaxed text-zinc-600 md:mt-3 md:min-h-[4.75rem] md:text-sm md:leading-relaxed md:line-clamp-4">
               {project.summary}
@@ -84,7 +90,7 @@ export default function ProjectCard({
                 href={project.readmeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-[#D9DEE5] bg-[#FFFFFF] px-3.5 py-1.5 text-[11px] font-medium text-[#4B5563] transition-colors hover:border-[#C8CFD9] hover:bg-[#F7F8FA]"
+                className={projectCardReadmeLink}
               >
                 README
               </a>
@@ -153,7 +159,7 @@ export default function ProjectCard({
                 href={project.readmeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-[#D9DEE5] bg-[#FFFFFF] px-3.5 py-1.5 text-[11px] font-medium text-[#4B5563] transition-colors hover:border-[#C8CFD9] hover:bg-[#F7F8FA]"
+                className={projectCardReadmeLink}
               >
                 README
               </a>

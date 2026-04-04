@@ -19,12 +19,13 @@ type Props = {
   setKindTags: (v: ProjectKindTagValue[]) => void;
   techTagsEdit: string[];
   setTechTagsEdit: (v: string[]) => void;
-  ephemeralNew?: boolean;
+  localDraft?: boolean;
   onEphemeralPersisted?: () => void;
   onEphemeralAbandoned?: () => void;
   onEphemeralHideOptimistic?: () => void;
   onEphemeralShowAgain?: () => void;
   onProjectSavedLocally?: (next: Project) => void;
+  onLocalDraftPostingChange?: (posting: boolean) => void;
 };
 
 /**
@@ -46,12 +47,13 @@ export default function ProjectCardBodyAdmin({
   setKindTags,
   techTagsEdit,
   setTechTagsEdit,
-  ephemeralNew = false,
+  localDraft = false,
   onEphemeralPersisted,
   onEphemeralAbandoned,
   onEphemeralHideOptimistic,
   onEphemeralShowAgain,
   onProjectSavedLocally,
+  onLocalDraftPostingChange,
 }: Props) {
   return (
     <AdminProjectCardToolbar
@@ -69,12 +71,13 @@ export default function ProjectCardBodyAdmin({
       setKindTags={setKindTags}
       techTagsEdit={techTagsEdit}
       setTechTagsEdit={setTechTagsEdit}
-      ephemeralNew={ephemeralNew}
+      localDraft={localDraft}
       onEphemeralPersisted={onEphemeralPersisted}
       onEphemeralAbandoned={onEphemeralAbandoned}
       onEphemeralHideOptimistic={onEphemeralHideOptimistic}
       onEphemeralShowAgain={onEphemeralShowAgain}
       onProjectSavedLocally={onProjectSavedLocally}
+      onLocalDraftPostingChange={onLocalDraftPostingChange}
     />
   );
 }

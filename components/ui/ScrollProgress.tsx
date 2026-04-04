@@ -8,17 +8,9 @@ export default function ScrollProgress() {
 
   useEffect(() => {
     const html = document.documentElement;
-    const body = document.body;
-
-    const hadHtmlNoScrollbar = html.classList.contains("no-scrollbar");
-    const hadBodyNoScrollbar = body.classList.contains("no-scrollbar");
-
-    // 메인 페이지에서만 기본 스크롤바 UI를 숨김(스크롤 기능은 유지).
-    html.classList.add("no-scrollbar");
-    body.classList.add("no-scrollbar");
 
     const computeAndSet = () => {
-      const scrollTop = window.scrollY || html.scrollTop || body.scrollTop || 0;
+      const scrollTop = window.scrollY || html.scrollTop || document.body.scrollTop || 0;
       const docHeight = html.scrollHeight;
       const winHeight = window.innerHeight;
       const maxScroll = Math.max(1, docHeight - winHeight);
@@ -42,9 +34,6 @@ export default function ScrollProgress() {
       if (rafRef.current != null) window.cancelAnimationFrame(rafRef.current);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-
-      if (!hadHtmlNoScrollbar) html.classList.remove("no-scrollbar");
-      if (!hadBodyNoScrollbar) body.classList.remove("no-scrollbar");
     };
   }, []);
 
