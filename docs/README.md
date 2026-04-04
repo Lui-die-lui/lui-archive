@@ -14,6 +14,7 @@
 | [guestbook-main-navigation.md](./guestbook-main-navigation.md) | 방명록 → 메인 섹션 이동(인트로 스킵·해시 스크롤) |
 | [cms-prisma-design.md](./cms-prisma-design.md) | CMS용 Prisma 스키마·시드·admin 모듈 단위 |
 | [prisma-local.md](./prisma-local.md) | 로컬 Prisma (`db push`, `generate`, `seed`) 절차 |
+| [supabase-db-migration.md](./supabase-db-migration.md) | Postgres → Supabase 데이터 이식 (`pg_dump` / `psql`) |
 | [ERD.md](./ERD.md) | DB ERD (Mermaid) |
 | [admin.md](./admin.md) | 관리자 인증·보호 라우트(`/admin`)·숨은 진입 |
 | [admin-projects-ui.md](./admin-projects-ui.md) | 홈 Projects — DB 편집·추가·순서(DnD)·낙관적 저장·API |

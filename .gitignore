@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# 로컬 DB 덤프(실수 커밋 방지)
+/data.sql
+
 # vercel
 .vercel
 

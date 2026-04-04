@@ -108,5 +108,6 @@ npm run db:seed
 ## 관련 문서·파일
 
 - [cms-prisma-design.md](./cms-prisma-design.md) — 모델 설계·시드 의도
+- [supabase-db-migration.md](./supabase-db-migration.md) — Supabase 등으로 **기존 DB 데이터만** 옮길 때 (`pg_dump` / `psql`)
 - [ERD.md](./ERD.md) — 관계도(Mermaid)
 - `prisma/schema.prisma`, `prisma/seed.ts`, `lib/prisma.ts`
