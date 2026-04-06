@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-04-03 — 홈 CLS: Skills 스켈레톤·Projects 스켈레톤 보강
+
+- **코드**: `SkillsSectionSkeleton.tsx`, `app/page.tsx` — `#skills` `Suspense` fallback. `ProjectsSectionSkeleton` 카드 최소 높이·요약 줄 보강.
+- **문서**: `docs/troubleshooting-performance-and-scroll.md` — CLS 절에 `#skills` 반영.
+
+## 2026-04-03 — 홈 CLS: Projects Suspense 스켈레톤
+
+- **코드**: `components/sections/ProjectsSectionSkeleton.tsx`, `app/page.tsx` — `ProjectsSection`용 `Suspense` fallback을 스켈레톤으로 교체해 `#projects` 구간 CLS 완화.
+- **문서**: `docs/troubleshooting-performance-and-scroll.md` — CLS 절 추가·요약 표 갱신.
+
 ## 2026-04-03 — 트러블슈팅 문서: LCP·스크롤 경고
 
 - **문서**: `docs/troubleshooting-performance-and-scroll.md` 신설 — LCP 개선 요약 표, `data-scroll-behavior` 안내. `docs/README.md` 인덱스 링크.

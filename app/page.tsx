@@ -3,7 +3,9 @@ import AboutSection from "@/components/sections/AboutSection";
 import CertsSection from "@/components/sections/CertsSection";
 import HeroSection from "@/components/sections/HeroSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
+import ProjectsSectionSkeleton from "@/components/sections/ProjectsSectionSkeleton";
 import SkillsSection from "@/components/sections/SkillsSection";
+import SkillsSectionSkeleton from "@/components/sections/SkillsSectionSkeleton";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import ScrollToHash from "@/components/ui/ScrollToHash";
 import { Suspense } from "react";
@@ -19,10 +21,10 @@ export default function Home() {
       <Suspense fallback={null}>
         <AboutSection />
       </Suspense>
-      <Suspense fallback={null}>
+      <Suspense fallback={<SkillsSectionSkeleton />}>
         <SkillsSection />
       </Suspense>
-      <Suspense fallback={null}>
+      <Suspense fallback={<ProjectsSectionSkeleton />}>
         <ProjectsSection />
       </Suspense>
       <Suspense fallback={null}>
