@@ -81,7 +81,7 @@ Next.js App Router 기반 포트폴리오에서 **현재까지 반영된 작업*
 ### Guestbook · Footer
 
 - **Guestbook**: `app/guestbook/page.tsx`에서 `GuestbookPanel`(기록 리스트 + 입력 폼) 렌더. admin 좌·guest 우, 파스텔 팔레트 선택, 제출은 클라이언트 상태만 갱신(mock).
-- **방명록 → 메인 섹션 내비**: 방명록에서 헤더의 `/#about` 등으로 갈 때 메인 인트로 지연을 건너뛰고 앵커 스크롤을 맞추기 위해 `?skipIntro=1` 쿼리 + `ScrollToHash`를 사용. 배경·파일은 [guestbook-main-navigation.md](./guestbook-main-navigation.md).
+- **방명록 → 메인 섹션 내비**: `?skipIntro=1#섹션` + `ScrollToHash`로 앵커 보정(과거 서버 인트로 800ms는 LCP 개선을 위해 제거됨). 상세는 [guestbook-main-navigation.md](./guestbook-main-navigation.md).
 - **CMS(1단계)**: Prisma 스키마·시드·설계 문서는 [cms-prisma-design.md](./cms-prisma-design.md). 본편 UI는 아직 `data/*.ts` mock 유지.
 - **Footer**: `data/contact.ts` 기반 이메일·SNS만 표시. 히어로 Contact는 `#footer`.
 

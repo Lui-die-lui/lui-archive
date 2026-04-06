@@ -28,6 +28,8 @@
 |------|------|
 | [troubleshooting-guestbook-scroll.md](./troubleshooting-guestbook-scroll.md) | 방명록 → 메인 해시 이동 시 화면 흔들림 원인·해결 |
 | [troubleshooting-dnd-hydration.md](./troubleshooting-dnd-hydration.md) | DnD 그립 `@dnd-kit` + Next SSR 하이드레이션 불일치 원인·해결 |
+| [troubleshooting-prisma-supabase-pooler.md](./troubleshooting-prisma-supabase-pooler.md) | Supabase 풀러 + Prisma `42P05` / prepared statement 충돌 |
+| [troubleshooting-performance-and-scroll.md](./troubleshooting-performance-and-scroll.md) | 홈 LCP 개선(인트로 제거·Suspense), `data-scroll-behavior` 콘솔 경고 |
 
 ## 기타 참고
 

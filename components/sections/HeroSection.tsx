@@ -62,7 +62,7 @@ export default function HeroSection() {
 
           <div className="flex min-h-0 flex-1 flex-col justify-center py-6 md:py-8 lg:py-10">
             <div className="min-w-0 max-w-2xl text-left">
-              <p className="text-[0.8125rem] font-normal leading-relaxed text-zinc-500 md:text-[0.8125rem]">
+              <p className="text-[0.77rem] font-normal leading-relaxed text-zinc-500 md:text-[0.8125rem]">
               A junior full-stack developer focused on UX, usability, and user flow
               </p>
 

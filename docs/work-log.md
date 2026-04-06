@@ -4,6 +4,19 @@
 
 ---
 
+## 2026-04-03 — 트러블슈팅 문서: LCP·스크롤 경고
+
+- **문서**: `docs/troubleshooting-performance-and-scroll.md` 신설 — LCP 개선 요약 표, `data-scroll-behavior` 안내. `docs/README.md` 인덱스 링크.
+
+## 2026-04-03 — 홈 LCP: 서버 인트로 제거·섹션 Suspense
+
+- **코드**: `app/page.tsx` — `INTRO_MIN_LOADING_MS` / `skipIntro` 서버 대기 제거, `HeroSection` 아래 `About`·`Skills`·`Projects`·`Certs`를 각각 `Suspense`로 분리해 히어로 RSC 우선 스트리밍.
+- **문서**: `docs/guestbook-main-navigation.md`, `docs/implementation.md` — `skipIntro`·인트로 대기 설명 갱신.
+
+## 2026-04-03 — 루트 README.md 실무형 재작성
+
+- **문서**: `README.md` — 채용·협업 대상 포트폴리오 문서 양식(소개, 배포·기간, 스택, 기능, 구조, UX·트러블슈팅, 로드맵, 실행, env, 작성자). 플레이스홀더는 작성자 기입.
+
 ## 2026-04-03 — 수료 및 자격 관리자 편집·모달·유령 추가
 
 - **코드**: `POST/PATCH/DELETE /api/admin/certs`, 제목 옆 편집 토글·일괄 수정·삭제, `CertEditForm`(모바일 인라인 / 데스크톱 `AdminDismissibleModal`), `AdminNewCertGhost*`, `SectionIntroHeader.titleAction`, `lib/cert-issued-label.ts`.
