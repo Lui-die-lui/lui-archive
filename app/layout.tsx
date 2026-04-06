@@ -31,6 +31,10 @@ export const metadata: Metadata = {
     template: "%s · Lui Archive",
   },
   description: defaultDescription,
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png" }],
+    apple: "/icon.png",
+  },
   openGraph: {
     type: "website",
     locale: "ko_KR",
