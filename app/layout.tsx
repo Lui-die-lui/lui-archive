@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 /** 링크 공유(OG/Twitter)용 썸네일 — Firebase Storage 공개 URL */
 const OG_IMAGE_URL =
-  "https://firebasestorage.googleapis.com/v0/b/lui-archive.firebasestorage.app/o/portfolio%2F%EC%8D%B8%EB%84%A4%EC%9D%BC.png?alt=media&token=cccb7615-36ec-43ce-b070-6408c82ce40e";
+  "https://firebasestorage.googleapis.com/v0/b/lui-archive.firebasestorage.app/o/portfolio%2Fprojects%2FOG_Image%2F%EC%8D%B8%EB%84%A4%EC%9D%BC.png?alt=media&token=a9ede567-1f91-49fa-8860-2949ef8bc741";
 
 const siteOrigin = getSiteOrigin();
 const defaultTitle = "Lui Archive";
