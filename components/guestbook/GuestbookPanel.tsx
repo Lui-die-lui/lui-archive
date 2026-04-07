@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -8,7 +9,8 @@ import {
   type FormEvent,
   type KeyboardEvent,
 } from "react";
-import { IoArrowUp } from "react-icons/io5";
+import { IoArrowDown, IoArrowUp } from "react-icons/io5";
+import { ctaPillGlassButtonHeader } from "@/components/ui/ctaPill";
 import {
   adminBubbleClass,
   getGuestBubbleClass,
@@ -40,6 +42,9 @@ type Props = {
   /** 관리자 세션 — 말풍선은 DB `authorType`으로만 구분(닉네임과 무관) */
   isAdminSession?: boolean;
 };
+
+/** 로그 하단에서 이보다 멀면 "최근" FAB 표시 (px) */
+const GUESTBOOK_BOTTOM_THRESHOLD_PX = 56;
 
 /** 메시지 글자수 상한 */
 const MAX_MESSAGE_CHARS = 200;
@@ -78,7 +83,9 @@ export default function GuestbookPanel({
   }, [initialEntries]);
 
   const logRef = useRef<HTMLDivElement | null>(null);
+  const logContentRef = useRef<HTMLDivElement | null>(null);
   const pendingScrollToBottomRef = useRef(false);
+  const [showScrollToRecent, setShowScrollToRecent] = useState(false);
 
   const sorted = useMemo(
     () =>
@@ -88,6 +95,44 @@ export default function GuestbookPanel({
       ),
     [entries],
   );
+
+  const updateScrollToRecentVisibility = useCallback(() => {
+    const el = logRef.current;
+    if (!el || sorted.length === 0) {
+      setShowScrollToRecent(false);
+      return;
+    }
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const distFromBottom = scrollHeight - scrollTop - clientHeight;
+    setShowScrollToRecent(distFromBottom > GUESTBOOK_BOTTOM_THRESHOLD_PX);
+  }, [sorted.length]);
+
+  useEffect(() => {
+    const el = logRef.current;
+    const inner = logContentRef.current;
+    if (!el) return;
+
+    const tick = () => updateScrollToRecentVisibility();
+    el.addEventListener("scroll", tick, { passive: true });
+    window.addEventListener("resize", tick);
+
+    const ro = new ResizeObserver(tick);
+    ro.observe(el);
+    if (inner) ro.observe(inner);
+
+    tick();
+    return () => {
+      el.removeEventListener("scroll", tick);
+      window.removeEventListener("resize", tick);
+      ro.disconnect();
+    };
+  }, [updateScrollToRecentVisibility, sorted.length]);
+
+  function scrollLogToRecent() {
+    const el = logRef.current;
+    if (!el) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  }
 
   const formDisabled =
     Boolean(loadError) ||
@@ -239,7 +284,8 @@ export default function GuestbookPanel({
 
     el.scrollTop = el.scrollHeight;
     pendingScrollToBottomRef.current = false;
-  }, [entries.length]);
+    requestAnimationFrame(() => updateScrollToRecentVisibility());
+  }, [entries.length, updateScrollToRecentVisibility]);
 
   return (
     <div className="flex min-h-0 w-full flex-1 flex-col gap-4 md:gap-5">
@@ -339,7 +385,10 @@ export default function GuestbookPanel({
             aria-label="방명록 기록"
             ref={logRef}
           >
-            <div className="w-full space-y-3 sm:space-y-4">
+            <div
+              ref={logContentRef}
+              className="w-full space-y-3 sm:space-y-4"
+            >
               {sorted.map((entry) => {
                 const isAdmin = entry.authorType === "admin";
                 const bubbleClass = isAdmin
@@ -404,6 +453,22 @@ export default function GuestbookPanel({
               })}
             </div>
           </div>
+          {showScrollToRecent ? (
+            <button
+              type="button"
+              onClick={scrollLogToRecent}
+              className={`pointer-events-auto absolute bottom-3 right-3 z-10 gap-1.5 motion-safe:active:scale-[0.98] sm:bottom-4 sm:right-4 sm:gap-2 ${ctaPillGlassButtonHeader} md:!px-3 lg:!px-3.5`}
+              aria-label="최근 방명록으로 부드럽게 이동"
+            >
+             
+              <span>최근</span>
+
+              <IoArrowDown
+                className="h-4 w-4 shrink-0 sm:h-[1rem] sm:w-[1rem]"
+                aria-hidden
+              />
+            </button>
+          ) : null}
         </div>
 
         <form
