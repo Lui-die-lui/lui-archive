@@ -22,7 +22,7 @@ const OG_IMAGE_URL =
 const siteOrigin = getSiteOrigin();
 const defaultTitle = "Lui Archive";
 const defaultDescription =
-  "Lui의 아카이브 — 포트폴리오, 기술 스택, 프로젝트, 방명록.";
+  "Lui Archive — Lee Seul gi's Developer Portfolio";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
