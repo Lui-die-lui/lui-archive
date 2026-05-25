@@ -67,9 +67,9 @@ export default function GithubContributionCard({ summary, username }: Props) {
               This year{" "}
               <span className="tabular-nums">{fmt(thisYear)}</span>
             </p>
-            <p className="mt-2.5 text-sm tabular-nums text-zinc-500 md:mt-2.5 md:text-sm">
-              Today {fmt(today)}
-            </p>
+            {/* <p className="mt-2.5 text-sm tabular-nums text-zinc-500 md:mt-2.5 md:text-sm"> */}
+              {/* Today {fmt(today)}
+            </p> */}
           </div>
           {handle ? (
             <p className="text-right">
